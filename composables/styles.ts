@@ -3,7 +3,7 @@ export const setupDarkStyle = () => {
     if (process.client) {
       // Verifica si se está ejecutando en el lado del cliente
       const darkModeValue = window.localStorage.getItem("dark");
-      console.log(darkModeValue);
+      // console.log(darkModeValue);
       if (window.localStorage.getItem("dark")) {
         // return JSON.parse(window.localStorage.getItem('dark'))
         const localStorageItem = window.localStorage.getItem("dark");

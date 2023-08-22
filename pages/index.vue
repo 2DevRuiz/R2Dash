@@ -8,19 +8,19 @@
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 p-4 gap-4">
         <div class="flex flex-col space-y-4">
-            <div class="w-full h-5 2xl:h-20 bg-red-200  rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
+            <div class="w-full h-5 2xl:h-20 bg-gray-600  rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] flex justify-center items-center" v-for="(item, index) in dataProducts" :key="index">
+                {{ item.title }}</div>
+            <!-- <div class="w-full h-5 2xl:h-20 bg-red-200  rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
                 Hola</div>
             <div class="w-full h-5 2xl:h-20 bg-red-200  rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
                 Hola</div>
             <div class="w-full h-5 2xl:h-20 bg-red-200  rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
-                Hola</div>
-            <div class="w-full h-5 2xl:h-20 bg-red-200  rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
-                Hola</div>
+                Hola</div> -->
         </div>
         <div class=" ">
             <CardData>
                 <div class="w-full flex justify-center items-center ">
-                    <h1>Aqui Ira el chart </h1>
+                    <BarChart v-if="isloaded" :gData="dProducts"/>
                 </div>
             </CardData>
         </div>
@@ -124,24 +124,40 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- <p class="text-gray-700">Contenido del card...</p> -->
             </div>
-
-            <!-- Footer -->
-            <!-- <div class="px-4 py-3 bg-gray-200"> -->
-            <!-- Aquí puedes agregar contenido adicional en el footer del card -->
-            <!-- <p class="text-gray-600">Footer del card...</p>
-                  </div> -->
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
+// import GeneralData from 'composables/DataService';
 // import setupDarkStyle from '~/composables/styles'
+import { nextTick } from 'vue';
+import useGData from '~/composables/DataService'
+const {gData,fetchData} = useGData()
 const Dark = setupDarkStyle()
-onMounted(() => {
-
+const dataProducts = ref([])
+const dProducts= ref({})
+const isloaded = ref(false)
+onMounted( async () => {
+    await nextTick();
+    await fetchData();
+    const chartLabels = ref([])
+    const chartData = ref([])
+    dataProducts.value = gData.value.products
+    dataProducts.value.forEach(element => {
+        chartLabels.value.push(element.title)
+        chartData.value.push(element.rating)
+    });
+    dProducts.value = {
+        labels:chartLabels.value,
+        data:chartData.value,
+        title:"rating"
+    }
+    isloaded.value = true
+    // console.log(gData.value)
     // setupDarkStyle()
-    console.log(Dark)
+    // console.log(Dark)
 })
+
 </script>
