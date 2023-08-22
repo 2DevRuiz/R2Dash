@@ -1,7 +1,7 @@
 <template>
 
   <!-- <div class="flex items-center justify-start pl-3 w-14 h-14 bg-blue-800 dark:bg-gray-800 md:justify-center md:w-64"> -->
-  <div class="flex items-center justify-start pl-3 w-14 h-14 bg-blue-800 dark:bg-gradient-to-t from-[#FDB618] via-[#00BBE1] to-[#BDBCBD] md:justify-center md:w-64">
+  <div class="flex items-center justify-start pl-3 w-14 h-14 00 md:justify-center md:w-64">
     <img class=" md:hidden w-7 h-7 md:w-10 md:h-10 mr-2 rounded-md overflow-hidden md:object-cover"
     src="~/assets/images/logos/logo_icon/256x256.png" />
     <img class=" h-16 mr-2 overflow-hidden md:object-cover md:block hidden"
