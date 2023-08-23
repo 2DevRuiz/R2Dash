@@ -130,8 +130,9 @@
 </template>
 
 <script lang="ts" setup>
-// import GeneralData from 'composables/DataService';
-// import setupDarkStyle from '~/composables/styles'
+definePageMeta({
+    middleware: 'auth' // this should match the name of the file inside the middleware directory 
+})
 import { nextTick } from 'vue';
 import useGData from '~/composables/DataService'
 const {gData,fetchData} = useGData()

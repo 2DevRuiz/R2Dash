@@ -65,6 +65,16 @@
                             <i class="fas fa-user-circle mr-2"></i>
                             My Profile
                         </a>
+                        <!-- separator -->
+                        <div class="px-6 pt-1">
+                            <hr class="border-gray-00" />
+                        </div>
+                        <!-- separator -->
+                        <a href="/"  @click="logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+                            <!-- Icon -->
+                            <i class="fas fa-user-circle mr-2"></i>
+                            LogOut
+                        </a>
                         <!-- Add more dropdown items as needed -->
                     </div>
                 </div>
@@ -84,6 +94,9 @@
     </ul>
 </template>
 <script lang="ts" setup>
+
+import { storeToRefs } from 'pinia'; // import storeToRefs helper hook from pinia
+import { useAuthStore } from '~/store/auth'; // import the auth store we just created
 const Dark = setupDarkStyle()
 const open2 = ref(false)
 const isDark = Dark.isDark
@@ -105,4 +118,16 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener("click", closeDropdown);
 });
+
+const router = useRouter();
+
+
+const { logUserOut } = useAuthStore(); // use authenticateUser action from  auth store
+const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive with storeToRefs
+
+const logout = () => {
+  logUserOut();
+  router.push('/login');
+};
+
 </script>

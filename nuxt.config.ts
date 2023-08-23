@@ -1,6 +1,17 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700,900&display=swap",
+        },
+        { rel: "icon", type: "image/png", href: "/favicon.png" },
+      ],
+    },
+  },
   css: [
     '@/assets/css/main.css',
     "@fortawesome/fontawesome-svg-core/styles.css",
@@ -40,5 +51,8 @@ export default defineNuxtConfig({
     { path: '~/components/ChartComponents', pathPrefix: false }, 
     '~/components'
   ],
-  
+  modules: [
+    // '@nuxtjs/tailwindcss',
+    '@pinia/nuxt',
+  ],
 })
