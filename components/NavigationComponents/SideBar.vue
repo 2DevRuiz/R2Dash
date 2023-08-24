@@ -77,10 +77,10 @@ const mainNavigation = [
   { title: 'Main', HeaderTitle: true },
 
   { title: 'Dashboard', icon: 'layer-group' },
-  { title: 'Pages', icon: 'file-circle-plus' },
+  { title: 'Extensions', icon: 'tty' },
   { title: 'Media', spacing: false, icon: 'sliders' },
   {
-    title: 'Projects', submenu: true, spacing: false, icon: 'chalkboard-user',
+    title: 'Customers', submenu: true, spacing: false, icon: 'chalkboard-user',
     submenuItems: [
       { title: "Submenu 1", icon: 'comments' },//<font-awesome-icon :icon="['fab', 'stack-overflow']" />
       { title: "Submenu 2", icon: 'landmark' },
