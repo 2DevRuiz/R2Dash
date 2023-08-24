@@ -10,7 +10,8 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     authenticated: false,
     loading: false,
-    errors: false
+    errors: false,
+    status:false
   }),
   actions: {
     async authenticateUser({ username, password }: UserPayloadInterface) {
@@ -23,11 +24,12 @@ export const useAuthStore = defineStore('auth', {
           password,
         },
       });
-      console.log(pending.value)
       this.loading = pending.value;
+      // console.log(status.value)
       if (!data || (error && error.value !== null)) {
         this.errors = error.value;
         this.authenticated = false;
+        this.status = false
       }
       else{
         const token = useCookie('token'); // useCookie new hook in nuxt 3
