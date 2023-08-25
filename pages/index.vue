@@ -18,7 +18,7 @@
                 Hola</div> -->
         </div>
         <div class=" ">
-            <CardData>
+            <CardData :title="'Call Stats'">
                 <div class="w-full flex justify-center items-center ">
                     <BarChart v-if="isloaded" :gData="dProducts"/>
                 </div>
