@@ -87,12 +87,12 @@ const mainNavigation = [
       { title: "Submenu 3", icon: 'newspaper' },
     ]
   },
-  { title: 'Settings', HeaderTitle: true },
-  { title: 'Analitycs' },
-  { title: 'Inbox' },
-  { title: 'Prafile', spacing: true },
-  { title: 'Setting' },
-  { title: 'Logout' }
+  // { title: 'Settings', HeaderTitle: true },
+  // { title: 'Analitycs' },
+  // { title: 'Inbox' },
+  // { title: 'Prafile', spacing: true },
+  // { title: 'Setting' },
+  // { title: 'Logout' }
 
 ]
 </script>

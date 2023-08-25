@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ 'dark':isDark }">
+    <div >
         <div
             class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-cyan-900 text-black dark:text-white">
             <Header />
@@ -12,9 +12,12 @@
 </template>
 
 <script lang="ts" setup>
-    // import setupDarkStyle from '../composables/styles'
-    const Dark = setupDarkStyle()
-    const isDark = Dark.isDark
-    // console.log(isDark)
-    
+// import setupDarkStyle from '../composables/styles'
+// const Dark = setupDarkStyle()
+// const isDark = Dark.isDark
+// console.log(isDark)
+// watch([isDark],()=>{
+//     console.log(isDark)  
+// })
+
 </script>

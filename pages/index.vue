@@ -237,7 +237,6 @@ definePageMeta({
 import { nextTick } from 'vue';
 import useGData from '~/composables/DataService'
 const {gData,fetchData} = useGData()
-const Dark = setupDarkStyle()
 const dataProducts = ref([])
 const dProducts= ref({})
 const isloaded = ref(false)
