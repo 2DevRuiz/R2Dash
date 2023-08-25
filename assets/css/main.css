@@ -7,7 +7,7 @@
       font-family: Montserrat, sans-serif;
     }
     /* <style> */
-  /* Compiled dark classes from Tailwind */
+  /* Compiled dark classes from Tailwind
   .dark .dark\:divide-gray-700 > :not([hidden]) ~ :not([hidden]) {
     border-color: rgba(55, 65, 81);
   }
@@ -112,7 +112,7 @@
   }
   .dark .dark\:hover\:text-blue-500:hover {
     color: rgba(59, 130, 246);
-  }
+  } */
 
   /* Custom style */
   .header-right {

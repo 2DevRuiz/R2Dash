@@ -3,8 +3,8 @@
         <li>
             <button aria-hidden="true" @click="sDark.toggleTheme($colorMode.preference == 'dark' ? 'light' : 'dark')"
                 class="group p-2 transition-colors duration-200 rounded-full shadow-md bg-blue-200 hover:bg-blue-200 dark:bg-gray-50 dark:hover:bg-gray-200 text-gray-900 focus:outline-none">
-                
-                <svg v-show="$colorMode.value == 'light'" width="24" height="24"
+
+                <!-- <svg v-show="$colorMode.value == 'light'" width="24" height="24"
                     class="fill-current text-gray-700 group-hover:text-gray-500 group-focus:text-gray-700 dark:text-gray-700 dark:group-hover:text-gray-500 dark:group-focus:text-gray-700"
                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -15,7 +15,9 @@
                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
+                </svg> -->
+               
+                <font-awesome-icon :icon="['fas', 'circle-half-stroke']" size="xl" class="fill-current text-gray-700 group-hover:text-gray-500 group-focus:text-gray-700 dark:text-gray-700 dark:group-hover:text-gray-500 dark:group-focus:text-gray-700 " :class="[($colorMode.value == 'dark')?'rotate-180 transition-all ease duration-100 delay-100':'transition-all ease duration-100 delay-100']"/>
             </button>
         </li>
         <li>
@@ -71,7 +73,8 @@
                             <hr class="border-gray-00" />
                         </div>
                         <!-- separator -->
-                        <a href="/"  @click="logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+                        <a href="/" @click="logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            role="menuitem">
                             <!-- Icon -->
                             <i class="fas fa-user-circle mr-2"></i>
                             LogOut
@@ -100,23 +103,23 @@ import { storeToRefs } from 'pinia'; // import storeToRefs helper hook from pini
 import { useAuthStore } from '~/store/auth'; // import the auth store we just created
 const open2 = ref(false)
 const closeDropdown = (event: Event) => {
-  if (!dropdownContainerRef.value?.contains(event.target as Node)) {
-    open2.value = false;
-  }
+    if (!dropdownContainerRef.value?.contains(event.target as Node)) {
+        open2.value = false;
+    }
 };
 const sDark = setupDarkStyle()
 const toggleDropdown = () => {
-  console.log("click image")
-  open2.value = !open2.value;
+    console.log("click image")
+    open2.value = !open2.value;
 };
 const dropdownContainerRef = ref<HTMLElement | null>(null);
 
 onMounted(() => {
-  document.addEventListener("click", closeDropdown);
+    document.addEventListener("click", closeDropdown);
 });
 
 onUnmounted(() => {
-  document.removeEventListener("click", closeDropdown);
+    document.removeEventListener("click", closeDropdown);
 });
 
 const router = useRouter();
@@ -126,8 +129,8 @@ const { logUserOut } = useAuthStore(); // use authenticateUser action from  auth
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive with storeToRefs
 
 const logout = () => {
-  logUserOut();
-  router.push('/login');
+    logUserOut();
+    router.push('/login');
 };
 
 </script>
