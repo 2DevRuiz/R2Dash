@@ -1,5 +1,5 @@
 <template>
-    <div  class="relative bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-2 border-blue-600 dark:border-gray-600 text-white font-medium group">
+    <div  class="relative bg-[#00BBE1] dark:bg-gray-800 shadow-2xl rounded-md flex items-center justify-between p-3 border-b-2 border-blue-600 dark:border-gray-600 text-white font-medium group">
       
       <div class="text-left">  
           <p class="text-2xl">1,257</p>
@@ -14,7 +14,7 @@
           </svg> -->
           <font-awesome-icon :icon="['fas', 'users']"  class=" text-2xl stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"/>
       </div>
-      <div class="inline-block absolute  bottom-[-10px] left-0 right-0 bg-sky-400 rounded-b-md  text-white hover:bg-sky-600 hover:text-white w-full h-5 justify-center  items-center text-center">
+      <div class="inline-block absolute  bottom-[-10px] left-0 right-0 bg-slate-700 rounded-b-md  text-white hover:bg-sky-600 hover:text-white w-full h-5 justify-center  items-center text-center">
         <h3 class=" cursor-pointer">Read Article →</h3>
       </div>
       <!-- <div class="absolute bottom-0 left-0 right-0 inline-block bg-red-500 w-full h-10"></div> -->

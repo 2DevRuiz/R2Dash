@@ -1,6 +1,6 @@
 <template>
-    <div
-        class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-2 border-blue-600 dark:border-gray-600 text-white font-medium group">
+    <div 
+        class=" bg-[#00BBE1] dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-2 border-gray-600 dark:border-gray-600 text-white font-medium group">
         <template v-if="iconSite === 'left'">
             <div
                 class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12 group-hover:scale-[1.2]">
@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts" setup>
-const { title, content, icon, iconSite } = defineProps({
+const { title, content, icon, iconSite,color } = defineProps({
     title: {
         type: String,
         default: ''
@@ -39,6 +39,10 @@ const { title, content, icon, iconSite } = defineProps({
     iconSite: {
         type: String,
         default: 'right'
+    },
+    color:{
+        type:String,
+        default:'#00BBE1'
     }
 })
 

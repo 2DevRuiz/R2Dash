@@ -14,9 +14,13 @@ module.exports = {
       'display': ['"Montserrat"'],
     },
     extend: {
+      boxShadow: {
+        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+      },
       backgroundImage: {
         'Login-image': "url('./assets/images/BackGround.jpeg')",
       },
+
       animation: {
         fullBorder: 'backGround 6s ease infinite',
         progressBar: 'progressBar 6s linear infinite'

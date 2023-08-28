@@ -14,7 +14,7 @@
             <div v-if="open"
                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                    <div class=" mt-2 pl-6 pr-4 py-4 flex items-center justify-between">
+                    <div class=" mt-2 pl-6 pr-4 py-4 flex items-center justify-between bg-gray-300 dark:bg-gray-100">
                         <div class="flex items-center">
                             <div
                                 class="relative w-8 h-8 rounded-full before:absolute before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:right-0 before:bottom-0 before:ring-1 before:ring-white">
@@ -23,7 +23,7 @@
                                     alt="" />
                             </div>
                             <div class="flex flex-col pl-3">
-                                <div class="text-sm text-gray-600 dark:text-gray-200">User</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">User</div>
                                 <span class="text-base text-[#acacb0] font-light tracking-tight">
                                     Administrador
                                 </span>
@@ -42,7 +42,7 @@
                         <hr class="border-gray-400 dark:border-gray-400 mb-2" />
                     </div>
                     <!-- separator -->
-                    <a href="/" class="group block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 dark:hover:text-gray-700 hover:bg-gray-100 border-r-4 border-transparent hover:border-sky-600" role="menuitem">
+                    <a href="javascript:void(0)" class="group block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 dark:hover:text-gray-700 hover:bg-gray-100 border-r-4 border-transparent hover:border-sky-600" role="menuitem">
                         <!-- Icon -->
                         <!-- <i class="fas fa-user-circle mr-2"></i> -->
                         <font-awesome-icon :icon="['fas', 'user']"
@@ -113,17 +113,21 @@
 import { storeToRefs } from 'pinia'; // import storeToRefs helper hook from pinia
 import { useAuthStore } from '~/store/auth'; // import the auth store we just created
 const open = ref(false)
+const sDark = setupDarkStyle()
+const toggleDropdown = () => {
+    open.value = !open.value;
+};
+
+const dropdownContainerRef = ref<HTMLElement | null>(null);
 const closeDropdown = (event: Event) => {
-    if (!dropdownContainerRef.value?.contains(event.target as Node)) {
+    const clickedOutsideMenu = !dropdownContainerRef.value?.contains(event.target as Node);
+    const clickedInsideMenu = dropdownContainerRef.value?.contains(event.target as Node);
+    
+    if (clickedOutsideMenu && !clickedInsideMenu) {
+        // console.log(clickedInsideMenu)
         open.value = false;
     }
 };
-const sDark = setupDarkStyle()
-const toggleDropdown = () => {
-    console.log("click image")
-    open.value = !open.value;
-};
-const dropdownContainerRef = ref<HTMLElement | null>(null);
 
 onMounted(() => {
     document.addEventListener("click", closeDropdown);
@@ -134,7 +138,6 @@ onUnmounted(() => {
 });
 
 const router = useRouter();
-
 
 const { logUserOut } = useAuthStore(); // use authenticateUser action from  auth store
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive with storeToRefs
