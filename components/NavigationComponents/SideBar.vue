@@ -1,7 +1,7 @@
 <template>
-  <!-- Sidebar -->
+  <!-- Sidebar w-14 hover:w-64 md:w-64 -->
   <div
-    class="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 bg-[#328199] dark:bg-slate-700 h-full text-white transition-all duration-300 border-none z-10 sidebar" :class="[st_menu ? 'md:w-64' : 'w-14']">
+    class="fixed flex flex-col top-14 left-0  bg-[#328199] dark:bg-slate-700 h-full text-white transition-all duration-300 border-none z-10 sidebar" :class="[menu_state ? 'w-14 hover:w-64 md:w-64' : 'w-14 hover:w-64']">
 
 
     <div class="overflow-x-hidden flex flex-col justify-between flex-grow">
