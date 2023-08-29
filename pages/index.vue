@@ -8,7 +8,10 @@
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 p-4 gap-4">
         <div class="">
-            <CardData :title="'Total Refill'">
+            <CardData>
+                <template #title>
+                    <div>Total Refill</div>
+                </template>
                 <div class="px-6 py-6 ">
                     <div class="flex flex-col space-y-4 ">
                         <div class="w-full h-5 2xl:h-20 bg-red-200  rounded-lg shadow-xl">
@@ -24,6 +27,9 @@
         </div>
         <div class=" ">
             <CardData :title="'Call Stats'">
+                <template #title>
+                    <div>Call Stats</div>
+                </template>
                 <div class="px-6 py-6">
                     <div class="w-full flex justify-center items-center ">
                         <BarChart v-if="isloaded" :gData="dProducts" />
