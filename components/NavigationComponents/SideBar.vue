@@ -1,14 +1,15 @@
 <template>
   <!-- Sidebar w-14 hover:w-64 md:w-64 -->
   <div
-    class="fixed flex flex-col top-14 left-0  bg-[#328199] dark:bg-slate-700 h-full text-white transition-all duration-300 border-none z-10 sidebar" :class="[menu_state ? 'w-14 hover:w-64 md:w-64' : 'w-14 hover:w-64']">
+    class="fixed flex flex-col top-14 left-0  bg-[#328199] dark:bg-slate-700 h-full text-white transition-all duration-300 border-none z-10 sidebar group"
+    :class="[menu_state ? 'w-14 hover:w-64 md:w-64' : 'w-14 hover:w-64']">
 
 
     <div class="overflow-x-hidden flex flex-col justify-between flex-grow">
 
       <ul class="flex flex-col py-4 space-y-1">
         <template v-for="item in mainNavigation" :key="item.title">
-          <li v-if="item.HeaderTitle" class="px-5 hidden md:block">
+          <li v-if="item.HeaderTitle" class="px-5 hover:block" :class="[menu_state ? 'md:block' : 'hidden group-hover:block']">
             <div class="flex flex-row items-center h-8">
               <div class="text-sm font-light tracking-wide text-gray-400 uppercase">{{ item.title }}</div>
             </div>
@@ -64,7 +65,7 @@
     </div>
     <!-- separator -->
     <!-- user information -->
-    <div class="w-full mb-16 pl-6 pr-4 py-4 bg-[#232529]  items-center justify-between hidden md:flex">
+    <div class="w-full mb-16 pl-6 pr-4 py-4 bg-[#232529]  items-center justify-between hidden md:flex md:pl-3" :class="[menu_state?'pl-6':'pl-3']">
       <div class="flex items-center">
         <div
           class=" relative w-8 h-8 rounded-full before:absolute before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:right-0 before:bottom-0 before:ring-1 before:ring-white">
@@ -72,7 +73,8 @@
             src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
             alt="" />
         </div>
-        <div class="hidden md:block">
+        <div class="" :class="[menu_state ? 'md:block' : 'hidden group-hover:block']">
+        <!-- <div class="hidden md:block"> -->
           <div class="flex flex-col pl-3">
             <div class="text-sm text-gray-50">User</div>
             <span class="text-base text-[#acacb0] font-light tracking-tight">
@@ -83,7 +85,7 @@
 
       </div>
       <button
-        class="text-gray-400 bg-gray-700 rounded focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white hidden md:block"
+        class="text-gray-400 bg-gray-700 rounded focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white" :class="[menu_state?'md:block':'hidden group-hover:block group-hover:transition-all group-hover:ease-linear group-hover:delay-150']"
         @click.stop="handleUserMenu()">
         <!-- <font-awesome-icon :icon="['fas', 'chevron-down']"
                   class="h-6 w-6 transition duration-300" :class="user_menu ? 'rotate-180' : ''"
@@ -174,10 +176,10 @@ const user_menu = ref(false);
 const subMenuOpen = ref(false);
 const search = ref('text');
 const defaultIcon = 'fa-layer-group';
-const {menu_state} = defineProps({
-  menu_state:{
-    type:Boolean,
-    default:true
+const { menu_state } = defineProps({
+  menu_state: {
+    type: Boolean,
+    default: true
   }
 })
 // console.log(menu_state)
@@ -211,6 +213,6 @@ const mainNavigation = [
 
 ]
 watch([st_menu], () => {
-   console.log(st_menu)
+  console.log(st_menu)
 })
 </script>
