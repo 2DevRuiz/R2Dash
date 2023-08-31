@@ -85,7 +85,7 @@
 
       </div>
       <button
-        class="text-gray-400 bg-gray-700 rounded focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white" :class="[menu_state?'md:block':'hidden group-hover:block group-hover:transition-all group-hover:ease-linear group-hover:delay-150']"
+        class="text-gray-400 bg-gray-700 rounded focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white" :class="[menu_state?'md:block':'hidden group-hover:block group-hover:transition-all group-hover:ease-linear group-hover:duration-200 ']"
         @click.stop="handleUserMenu()">
         <!-- <font-awesome-icon :icon="['fas', 'chevron-down']"
                   class="h-6 w-6 transition duration-300" :class="user_menu ? 'rotate-180' : ''"

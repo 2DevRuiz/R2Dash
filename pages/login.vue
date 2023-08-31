@@ -1,14 +1,21 @@
 <template>
-    <div class="flex h-screen w-full justify-center items-center text-center bg-gray-900 bg-cover bg-center bg-no-repeat bg-Login-image" >
+    <div
+        class="flex h-screen w-full justify-center items-center text-center bg-gray-900 bg-cover bg-center bg-no-repeat bg-Login-image">
         <div
             class="relative bg-opacity-0 animate-fullBorder rounded-xl bg-white bg-[length:300%_400%] p-0.5 bg-gradient-to-r from-[#00BBE1] via-green-500 to-[#FDB618] mt-10 overflow-hidden">
-           
+
             <!-- <div
                 class="rounded-xl bg-gray-600 bg-opacity-50 px-16 py-10 shadow-lg backdrop-filter backdrop-blur-2xl md:backdrop-filter md:backdrop-blur-sm max-sm:px-8 "> -->
             <div class="rounded-xl bg-gray-600 bg-opacity-100 px-16 py-10 shadow-lg  max-sm:px-8 ">
                 <div class="mb-8 flex flex-col items-center">
                     <!-- <img src="../assets/images/logos/R2A_WB.png" width="350" alt="" srcset="" /> -->
-                    <Logos />
+                    <div class="flex items-center justify-start pl-3 w-14 h-14 00 md:justify-center md:w-64 ">
+                        <img class=" md:hidden w-7 h-7 md:w-10 md:h-10 mr-2 rounded-md overflow-hidden md:object-cover"
+                            src="~/assets/images/logos/logo_icon/256x256.png" />
+                        <img class=" h-16 mr-2 overflow-hidden md:object-cover md:block hidden"
+                            src="~/assets/images/logos/R2A_WB.png" />
+                        <!-- <span class="hidden md:block">Ring2All</span> -->
+                    </div>
                     <!-- <h1 class="mb-2 text-2xl">Ring2All</h1> -->
                     <span class="text-gray-300">Enter Login Details</span>
                 </div>
@@ -47,7 +54,7 @@
                 <!-- <ProgressBar v-if="showProgresBar" /> -->
             </div>
             <div class="absolute inset-x-0 w-11/12 rounded-xl  mt-[-1.125rem] ml-5" v-if="showProgresBar">
-                <ProgressBar v-if="showProgresBar" @loaded="showBarState"/>
+                <ProgressBar v-if="showProgresBar" @loaded="showBarState" />
             </div>
         </div>
     </div>
@@ -101,7 +108,7 @@ const modalStateChange = (state: boolean) => {
     ErrorShow.value = state
 }
 const showBarState = (state: boolean) => {
-    console.log(state)
+    // console.log(state)
     showProgresBar.value = state
 }
 
@@ -132,7 +139,7 @@ const login = async () => {
     }
     else {
         showProgresBar.value = true
-        watch(showProgresBar,()=>{
+        watch(showProgresBar, () => {
             router.push('/');
         })
         // router.push('/');
