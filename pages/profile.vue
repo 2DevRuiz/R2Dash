@@ -1,4 +1,5 @@
 <template>
+
     <div class="container mx-auto mt-5 ">
         <div class="w-full h-10">
             <CardData title="User Profile">
