@@ -73,7 +73,7 @@
             src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
             alt="" />
         </div>
-        <div class="" :class="[menu_state ? 'md:block' : 'hidden group-hover:block']">
+        <div class="" :class="[menu_state ? 'md:block' : 'hidden group-hover:block group-hover:transition-all group-hover:ease-in group-hover:delay-150 group-hover:duration-300']">
         <!-- <div class="hidden md:block"> -->
           <div class="flex flex-col pl-3">
             <div class="text-sm text-gray-50">User</div>
