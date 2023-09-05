@@ -1,8 +1,7 @@
 <template>
   <!-- Sidebar w-14 hover:w-64 md:w-64 -->
-  <div
-    class="fixed flex flex-col top-14 left-0  bg-[#328199] dark:bg-slate-700 h-full text-white transition-all duration-300 border-none z-10 sidebar group"
-    :class="[menu_state ? 'w-14 hover:w-64 md:w-64' : 'w-14 hover:w-64']">
+  <div class="fixed flex flex-col top-14 left-0  bg-[#328199] dark:bg-slate-700 h-full text-white transition-all duration-300 border-none z-10 sidebar group"
+    :class="[menu_state ? 'w-14 hover:w-64 md:w-64' : 'w-0']">
 
 
     <div class="overflow-x-hidden flex flex-col justify-between flex-grow">
@@ -14,7 +13,7 @@
               <div class="text-sm font-light tracking-wide text-gray-400 uppercase">{{ item.title }}</div>
             </div>
           </li>
-          <li v-else @click="item.submenu && handleClick()">
+          <li v-else @click="item.submenu && handleClick()" :class="(item.submenu && subMenuOpen && !menu_state)? 'bg-slate-600' : ''">
             <!-- <a href="#"
               class="relative rounded-md flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
               <span class="inline-flex justify-center items-center ml-4">
@@ -29,7 +28,7 @@
               </span>
             </a> -->
             <a :href="(item.href) ? item.href : 'javascript:void(0)'"
-              class="relative rounded-md flex flex-row items-center h-11 focus:outline-none hover:bg-slate-700 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+              class="relative rounded-md flex flex-row items-center h-11 focus:outline-none hover:bg-slate-700 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6" >
               <span class="inline-flex justify-center items-center ml-4">
                 <font-awesome-icon class="text-lg"
                   :icon="['fas', (item.icon && item.icon !== '') ? item.icon : defaultIcon]" />
@@ -43,11 +42,11 @@
             </a>
 
           </li>
-          <ul v-if="(item.submenu && subMenuOpen && open)" class="flex flex-col py-4 space-y-1 ml-4">
+          <ul v-if="(item.submenu && subMenuOpen && open)" class="flex flex-col py-2 space-y-1 " :class="(item.submenu && subMenuOpen && !open)?' ml-4':'ml-8'">
             <li v-for="(submenuItem, index) in item.submenuItems" :key="index">
               <a href="#"
                 class="relative rounded-md flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
-                <span class="inline-flex justify-center items-center ml-4">
+                <span class="inline-flex justify-center items-center " :class="(item.submenu && subMenuOpen && !open)?' ml-4':'ml-1'">
                   <font-awesome-icon class=" text-lg"
                     :icon="['fas', (submenuItem.icon && submenuItem.icon !== '') ? submenuItem.icon : defaultIcon]" />
                 </span>
@@ -64,19 +63,18 @@
       <hr class="border-gray-400 dark:border-gray-400 mb-2" />
     </div>
     <!-- separator -->
-    <!-- user information -->
-    <div class="w-full mb-16 pl-6 pr-4 py-4 bg-[#232529]  items-center justify-between hidden md:flex md:pl-3" :class="[menu_state?'pl-6':'pl-3']">
+    <!-- user information --> 
+    <div class=" mb-16 pl-6 pr-4 py-4 bg-[#232529]  items-center justify-between hidden md:flex md:pl-3" :class="[menu_state?'w-full ':'w-14 group-hover:w-full rounded-r-xl group-hover:rounded-none']">
       <div class="flex items-center">
-        <div
-          class=" relative w-8 h-8 rounded-full before:absolute before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:right-0 before:bottom-0 before:ring-1 before:ring-white">
+        <div class=" relative w-8 h-8 rounded-full before:absolute before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:right-0 before:bottom-0 before:ring-1 before:ring-white">
           <img class="rounded-full mr-0 md:mr-14"
-            src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+            :src="user.avatar"
             alt="" />
         </div>
         <div class="" :class="[menu_state ? 'md:block' : 'hidden group-hover:block group-hover:transition-all group-hover:ease-in group-hover:delay-150 group-hover:duration-300']">
         <!-- <div class="hidden md:block"> -->
           <div class="flex flex-col pl-3">
-            <div class="text-sm text-gray-50">User</div>
+            <div class="text-sm text-gray-50">{{user.username}}</div>
             <span class="text-base text-[#acacb0] font-light tracking-tight">
               Administrador
             </span>
@@ -170,12 +168,14 @@
 </template>
 
 <script lang="ts" setup>
+import { useAuthStore } from '~/store/auth'; // import the auth store we just created
 const sDark = setupDarkStyle()
 const open = ref(true);
 const user_menu = ref(false);
 const subMenuOpen = ref(false);
 const search = ref('text');
 const defaultIcon = 'fa-layer-group';
+const { user } = useAuthStore(); 
 const { menu_state } = defineProps({
   menu_state: {
     type: Boolean,
@@ -212,7 +212,4 @@ const mainNavigation = [
   // { title: 'Logout' }
 
 ]
-watch([st_menu], () => {
-  console.log(st_menu)
-})
 </script>

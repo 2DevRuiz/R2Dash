@@ -5,7 +5,7 @@
             <!-- Profile Picture -->
             <div class="h-11 w-11 bg-transparent hover:bg-sky-600 rounded-full p-[0.1875rem] flex justify-center items-center">
                 <img class="h-10 w-10 rounded-full cursor-pointer object-cover"
-                    src="https://images.unsplash.com/photo-1610397095767-84a5b4736cbd?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
+                :src="user.userImage"
                     alt="Profile Picture" @click.stop="toggleDropdown" id="img-user" />
             </div>
 
@@ -14,7 +14,7 @@
             <div v-if="open"
                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                    <div class=" mt-2 pl-6 pr-4 py-4 flex items-center justify-between bg-gray-300 dark:bg-gray-100">
+                    <div class=" mt-2 pl-6 pr-4 py-4 flex items-center justify-between bg-slate-400 dark:bg-gray-100">
                         <div class="flex items-center">
                             <div
                                 class="relative w-8 h-8 rounded-full before:absolute before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:right-0 before:bottom-0 before:ring-1 before:ring-white">
@@ -23,8 +23,8 @@
                                     alt="" />
                             </div>
                             <div class="flex flex-col pl-3">
-                                <div class="text-sm text-gray-600 dark:text-gray-400">User</div>
-                                <span class="text-base text-[#acacb0] font-light tracking-tight">
+                                <div class="text-sm text-gray-600 dark:text-gray-400">{{user.username}}</div>
+                                <span class="text-base text-gray-100 font-light tracking-tight">
                                     Administrador
                                 </span>
                             </div>
@@ -139,7 +139,7 @@ onUnmounted(() => {
 
 const router = useRouter();
 
-const { logUserOut } = useAuthStore(); // use authenticateUser action from  auth store
+const { logUserOut,user } = useAuthStore(); // use authenticateUser action from  auth store
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive with storeToRefs
 
 const logout = () => {

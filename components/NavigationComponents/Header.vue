@@ -17,9 +17,9 @@
 const state_menu = ref(true)
 const emits = defineEmits();
 const toogleMenu = (state:boolean)=>{
-  state_menu.value = state
-  // console.log(state_menu.value)
-  // emits('stateMenu', state_menu.value)
+  state_menu.value = state;
+  // console.log(state_menu.value);
+  emits('stateMen', state_menu.value)
   // console.log(state_menu.value)
 }
 </script>

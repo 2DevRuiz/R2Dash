@@ -1,8 +1,8 @@
 <template>
     <!-- <div > -->
         <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 dark:bg-cyan-900 text-black dark:text-white">
-            <Header />
-            <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+            <Header @stateMen="toogleSide"/>
+            <div class="h-full mt-14 mb-10 " :class="[state_menu?'ml-20 md:ml-64':'ml-20 md:ml-10']">
                 <slot></slot>
             </div>
         </div>
@@ -17,9 +17,9 @@
 // watch([isDark],()=>{
 //     console.log(isDark)  
 // })
-// const state_menu = ref(true);
-// const toogleSide = (state:boolean) =>{
-//     // console.log(state)
-//     state_menu.value = state
-// }
+const state_menu = ref(true);
+const toogleSide = (state:boolean) =>{
+    // console.log("state ->12345657")
+    state_menu.value = state
+}
 </script>

@@ -11,7 +11,8 @@ export const useAuthStore = defineStore('auth', {
     authenticated: false,
     loading: false,
     errors: false,
-    status:false
+    status:false,
+    user:{}
   }),
   actions: {
     async authenticateUser({ username, password }: UserPayloadInterface) {
@@ -34,8 +35,15 @@ export const useAuthStore = defineStore('auth', {
       else{
         const token = useCookie('token'); // useCookie new hook in nuxt 3
         token.value = data?.value?.token; // set token to cookie
+        localStorage.setItem('userAvatar', data.value.image);
+        localStorage.setItem('username', data.value.username);
         this.authenticated = true; // set authenticated  state value to true
         this.loading = false;
+        this.user = {
+          username:data.value.username,
+          avatar:data.value.image
+        }
+        console.log(data.value)
       }
     },
     logUserOut() {
@@ -44,6 +52,7 @@ export const useAuthStore = defineStore('auth', {
       this.loading = false; // set authenticated  state value to false
       token.value = null; // clear the token cookie
       this.loading = false;
+      this.user = {};
     },
   },
 });
