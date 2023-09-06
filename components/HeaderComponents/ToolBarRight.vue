@@ -5,7 +5,7 @@
             <!-- Profile Picture -->
             <div class="h-11 w-11 bg-transparent hover:bg-sky-600 rounded-full p-[0.1875rem] flex justify-center items-center">
                 <img class="h-10 w-10 rounded-full cursor-pointer object-cover"
-                :src="user.userImage"
+                :src="userAvatar"
                     alt="Profile Picture" @click.stop="toggleDropdown" id="img-user" />
             </div>
 
@@ -17,13 +17,13 @@
                     <div class=" mt-2 pl-6 pr-4 py-4 flex items-center justify-between bg-slate-400 dark:bg-gray-100">
                         <div class="flex items-center">
                             <div
-                                class="relative w-8 h-8 rounded-full before:absolute before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:right-0 before:bottom-0 before:ring-1 before:ring-white">
+                                class="relative w-9 h-9 rounded-full before:absolute before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:right-0 before:bottom-0 before:ring-1 before:ring-white">
                                 <img class="rounded-full"
-                                    src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+                                    :src="userAvatar"
                                     alt="" />
                             </div>
                             <div class="flex flex-col pl-3">
-                                <div class="text-sm text-gray-600 dark:text-gray-400">{{user.username}}</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">{{user}}</div>
                                 <span class="text-base text-gray-100 font-light tracking-tight">
                                     Administrador
                                 </span>
@@ -139,8 +139,8 @@ onUnmounted(() => {
 
 const router = useRouter();
 
-const { logUserOut,user } = useAuthStore(); // use authenticateUser action from  auth store
-const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive with storeToRefs
+const { logUserOut } = useAuthStore(); // use authenticateUser action from  auth store
+const { authenticated,user,userAvatar } = storeToRefs(useAuthStore()); // make authenticated state reactive with storeToRefs
 
 const logout = () => {
     logUserOut();

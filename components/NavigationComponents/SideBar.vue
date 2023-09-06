@@ -68,13 +68,13 @@
       <div class="flex items-center">
         <div class=" relative w-8 h-8 rounded-full before:absolute before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:right-0 before:bottom-0 before:ring-1 before:ring-white">
           <img class="rounded-full mr-0 md:mr-14"
-            :src="user.avatar"
+            :src="userAvatar"
             alt="" />
         </div>
         <div class="" :class="[menu_state ? 'md:block' : 'hidden group-hover:block group-hover:transition-all group-hover:ease-in group-hover:delay-150 group-hover:duration-300']">
         <!-- <div class="hidden md:block"> -->
           <div class="flex flex-col pl-3">
-            <div class="text-sm text-gray-50">{{user.username}}</div>
+            <div class="text-sm text-gray-50">{{user}}</div>
             <span class="text-base text-[#acacb0] font-light tracking-tight">
               Administrador
             </span>
@@ -175,7 +175,7 @@ const user_menu = ref(false);
 const subMenuOpen = ref(false);
 const search = ref('text');
 const defaultIcon = 'fa-layer-group';
-const { user } = useAuthStore(); 
+const { user,userAvatar } = useAuthStore(); 
 const { menu_state } = defineProps({
   menu_state: {
     type: Boolean,

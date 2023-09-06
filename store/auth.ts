@@ -12,7 +12,8 @@ export const useAuthStore = defineStore('auth', {
     loading: false,
     errors: false,
     status:false,
-    user:{}
+    user:localStorage.getItem('username') || {},
+    userAvatar:localStorage.getItem('userAvatar') || '',
   }),
   actions: {
     async authenticateUser({ username, password }: UserPayloadInterface) {

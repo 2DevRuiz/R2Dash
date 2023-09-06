@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   colorMode: {
     classSuffix: ''
   },
+  ssr:false,
   devtools: { enabled: true },
   app: {
     head: {
