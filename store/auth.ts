@@ -12,6 +12,7 @@ export const useAuthStore = defineStore('auth', {
     loading: false,
     errors: false,
     status:false,
+    userInfo:{},
     user:localStorage.getItem('username') || {},
     userAvatar:localStorage.getItem('userAvatar') || '',
   }),
@@ -40,7 +41,7 @@ export const useAuthStore = defineStore('auth', {
         localStorage.setItem('username', data.value.username);
         this.authenticated = true; // set authenticated  state value to true
         this.loading = false;
-        this.user = {
+        this.userInfo = {
           username:data.value.username,
           avatar:data.value.image
         }

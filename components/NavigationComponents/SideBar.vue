@@ -125,9 +125,9 @@
           class="group block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 dark:hover:text-gray-700 hover:bg-gray-100 border-r-4 border-transparent hover:border-sky-600"
           role="menuitem" @click="sDark.toggleTheme($colorMode.preference == 'dark' ? 'light' : 'dark')">
           <!-- Icon -->
-          <font-awesome-icon v-if="$colorMode.value == 'light'" :icon="['fas', 'sun']"
+          <font-awesome-icon v-if="$colorMode.value == 'light'" :icon="['fas', 'moon']"
             class="mr-2 fill-current text-gray-700 dark:text-gray-200 group-hover:text-sky-500 " />
-          <font-awesome-icon v-if="$colorMode.value == 'dark'" :icon="['fas', 'moon']"
+          <font-awesome-icon v-if="$colorMode.value == 'dark'" :icon="['fas', 'sun']"
             class="mr-2 fill-current text-gray-700 dark:text-gray-200 group-hover:text-sky-500 " />
           Theme
         </a>
