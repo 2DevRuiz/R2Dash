@@ -22,7 +22,7 @@
                 <form class="mt-12" action="#" autocomplete="off">
 
                     <div class="relative mb-6">
-                        <input id="txt_username" name="txt_username" type="text" v-model="user.username"
+                        <input id="txt_username" name="txt_username" type="text" v-model="user.email"
                             class="peer/username p-2 pe-10 h-10 mt-1 w-full rounded-md border-b-2 bg-[#BDBCBD] bg-opacity-50 border-gray-300 text-gray-50 placeholder-transparent focus:outline-none focus:border-[#00BBE1] invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
                             placeholder="" />
                         <label for="txt_username"
@@ -69,8 +69,9 @@ definePageMeta({
     layout: 'auth'
 });
 const user = ref({
-    username: '',
+    email: '',
     password: '',
+    username:''
 });
 const errorProps = ref({
     title: '',
