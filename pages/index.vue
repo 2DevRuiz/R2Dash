@@ -48,7 +48,7 @@
             <!-- Cuerpo -->
             <div class="px-4 py-6">
                 <!-- Aquí puedes agregar el contenido del cuerpo del card h-[780px] -->
-                <div class=" w-full bg-slate-400 rounded-sm">
+                <div class=" w-full bg-slate-400 rounded-sm overflow-auto shadow">
                     <table class="min-w-full divide-y divide-gray-200 table-auto">
                         <thead class="bg-gray-100 text-start text-black">
                             <tr>
@@ -147,7 +147,7 @@
                 class="flex items-center align-middle px-4 py-4 mb-0 bg-red-200 border-b-1 rounded-t-xl border-gray-300 text-gray-900 ">
                 <h3 class="mb-1 font-bold">Title</h3>
             </div>
-            <div class="flex-auto p-6">
+            <div class="flex-auto p-6 rounded-sm overflow-auto shadow">
                 <table class="min-w-full divide-y divide-gray-200 table-auto">
                     <thead class="bg-gray-100 text-start text-black">
                         <tr>
@@ -243,7 +243,7 @@
 
 <script lang="ts" setup>
 definePageMeta({
-    middleware: 'auth' // this should match the name of the file inside the middleware directory 
+    //middleware: 'auth' // this should match the name of the file inside the middleware directory 
 })
 
 import { nextTick } from 'vue';
