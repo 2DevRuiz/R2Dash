@@ -129,6 +129,7 @@
   </template>
   
   <script lang="ts" setup>
+  import { useAuthStore } from '~/store/auth';
   const sDark = setupDarkStyle()
   const open = ref(true);
   const user_menu = ref(false);
