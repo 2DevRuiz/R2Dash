@@ -54,6 +54,7 @@ export default defineNuxtConfig({
     { path: '~/components/CardsComponents', pathPrefix: false }, 
     { path: '~/components/ChartComponents', pathPrefix: false }, 
     { path: '~/components/ModalsComponents', pathPrefix: false }, 
+    { path: '~/components/NotificationComponents', pathPrefix: false }, 
     '~/components'
   ],
   modules: [
