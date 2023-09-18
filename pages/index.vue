@@ -243,7 +243,7 @@
 
 <script lang="ts" setup>
 definePageMeta({
-    //middleware: 'auth' // this should match the name of the file inside the middleware directory 
+    middleware: 'auth' // this should match the name of the file inside the middleware directory 
 })
 
 import { nextTick } from 'vue';
@@ -265,7 +265,7 @@ onMounted(async () => {
     dProducts.value = {
         labels: chartLabels.value,
         data: chartData.value,
-        title: "rating"
+        title: "stats"
     }
     isloaded.value = true
     // console.log(gData.value)

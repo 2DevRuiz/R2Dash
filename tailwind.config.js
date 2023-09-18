@@ -14,6 +14,9 @@ module.exports = {
       'display': ['"Montserrat"'],
     },
     extend: {
+      colors:{
+        'light-cyan':'#00BBE1'
+      },
       boxShadow: {
         '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
       },

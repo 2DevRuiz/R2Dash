@@ -1,6 +1,10 @@
 
 import { defineStore } from 'pinia';
-
+interface UserPayloadInterface {
+  username: string;
+  password: string;
+  email : string;
+}
 // connect to backend
 // interface UserPayloadInterface {
 //   username: string;
@@ -8,10 +12,10 @@ import { defineStore } from 'pinia';
 //   email:string;
 // }
 // connect to backend
-interface UserPayloadInterface {
-  username: string;
-  password: string;
-}
+// interface UserPayloadInterface {
+//   username: string;
+//   password: string;
+// }
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     authenticated: false,
@@ -67,35 +71,65 @@ export const useAuthStore = defineStore('auth', {
     //     console.log(auth.value)
     //   }
     // },
-    async authenticateUser({ username, password }: UserPayloadInterface) {
+    // async authenticateUser({ username, password }: UserPayloadInterface) {
+    //   // useFetch from nuxt 3
+    //   const { data, status,error,pending}: any = await useFetch('https://dummyjson.com/auth/login', {
+    //     method: 'post',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: {
+    //       username,
+    //       password,
+    //     },
+    //   });
+    //   this.loading = pending.value;
+    //   // console.log(status.value)
+    //   if (!data || (error && error.value !== null)) {
+    //     this.errors = error.value;
+    //     this.authenticated = false;
+    //     this.status = false
+    //   }
+    //   else{
+    //     const token = useCookie('token'); // useCookie new hook in nuxt 3
+    //     token.value = data?.value?.token; // set token to cookie
+    //     localStorage.setItem('userAvatar', data.value.image);
+    //     localStorage.setItem('username', data.value.username);
+    //     this.authenticated = true; // set authenticated  state value to true
+    //     this.loading = false;
+    //     this.user = {
+    //       username:data.value.username,
+    //       avatar:data.value.image
+    //     }
+    //     console.log(data.value)
+    //   }
+    // },
+    async authenticateUser({ email, password }: UserPayloadInterface) {
       // useFetch from nuxt 3
-      const { data, status,error,pending}: any = await useFetch('https://dummyjson.com/auth/login', {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-        body: {
-          username,
-          password,
-        },
-      });
+      const { data, status, error, pending }: any = await useFetch(
+        "https://api.escuelajs.co/api/v1/auth/login",
+        {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: {
+            email,
+            password,
+          },
+        }
+      );
       this.loading = pending.value;
-      // console.log(status.value)
       if (!data || (error && error.value !== null)) {
         this.errors = error.value;
         this.authenticated = false;
-        this.status = false
-      }
-      else{
-        const token = useCookie('token'); // useCookie new hook in nuxt 3
-        token.value = data?.value?.token; // set token to cookie
-        localStorage.setItem('userAvatar', data.value.image);
-        localStorage.setItem('username', data.value.username);
+      } else {
+        const token = useCookie("token"); // useCookie
+        token.value = data?.value?.access_token; // set token to cookie
+        localStorage.setItem("userAvatar", data.value.image);//set userAvatar info
+        localStorage.setItem("username", data.value.username);//set username info
         this.authenticated = true; // set authenticated  state value to true
         this.loading = false;
-        this.user = {
-          username:data.value.username,
-          avatar:data.value.image
-        }
-        console.log(data.value)
+        this.userInfo = {
+          username: data.value.username,
+          avatar: data.value.image,
+        };
       }
     },
     logUserOut() {

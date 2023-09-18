@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex h-screen w-full justify-center items-center text-center  bg-gradient-to-bl from-indigo-700 to-green-600">
+        class="flex h-screen w-full justify-center items-center text-center bg-gray-900 bg-cover bg-center bg-no-repeat bg-Login-image">
         <div
             class="relative bg-opacity-0 animate-fullBorder rounded-xl bg-white bg-[length:300%_400%] p-0.5 bg-gradient-to-r from-[#00BBE1] via-green-500 to-[#FDB618] mt-10 overflow-hidden">
 
@@ -11,9 +11,9 @@
                     <!-- <img src="../assets/images/logos/R2A_WB.png" width="350" alt="" srcset="" /> -->
                     <div class="flex items-center justify-start pl-3 w-14 h-14 00 md:justify-center md:w-64 ">
                         <img class=" md:hidden w-7 h-7 md:w-10 md:h-10 mr-2 rounded-md overflow-hidden md:object-cover"
-                            src="@/assets/images/R2A_ICON.png" />
+                            src="~/assets/images/logos/logo_icon/256x256.png" />
                         <img class=" h-16 mr-2 overflow-hidden md:object-cover md:block hidden"
-                            src="@/assets/images/R2A_WB.png" />
+                            src="~/assets/images/logos/R2A_WB.png" />
                         <!-- <span class="hidden md:block">Ring2All</span> -->
                     </div>
                     <!-- <h1 class="mb-2 text-2xl">Ring2All</h1> -->
@@ -45,19 +45,21 @@
                         </span>
                     </div>
                     <div class="relative">
-                        <button type="button" v-if="!showProgresBar" @click="login()"
+                        <button type="button" @click="login()"
                             class="rounded-3xl px-10 py-2 border-2 border-[#00BBE1] text-white shadow-xl backdrop-blur-md bg-[#00BBE1] hover:bg-gradient-to-l hover:from-[#FDB618] hover:to-[#00BBE1] hover:border-2 hover:border-r-[#FDB618] hover:border-t-[#FDB618] hover:border-x-[#00BBE1]">
                             Login
                         </button>
-                        <SpinnerComponent @loaded="showBarState" v-if="showProgresBar" />
                     </div>
                 </form>
+                <!-- <ProgressBar v-if="showProgresBar" /> -->
             </div>
-            <!-- <div class="relative inset-x-0 w-11/12 rounded-xl br-red-500  mt-[-1.125rem] ml-5 justify-center"> -->
-
+            <div class="absolute inset-x-0 w-11/12 rounded-xl  mt-[-1.125rem] ml-5" v-if="showProgresBar">
+                <ProgressBar v-if="showProgresBar" @loaded="showBarState" />
+            </div>
         </div>
     </div>
-    <AlertError v-if="ErrorShow" @modalState="modalStateChange" :title="errorProps.title" :content="errorProps.content" />
+    <ModalErrorIcon v-if="ErrorShow" @modalState="modalStateChange" :title="errorProps.title"
+        :content="errorProps.content" />
 </template>
 
 <script lang="ts" setup>
@@ -69,7 +71,7 @@ definePageMeta({
 const user = ref({
     email: '',
     password: '',
-    username: ''
+    username:''
 });
 const errorProps = ref({
     title: '',

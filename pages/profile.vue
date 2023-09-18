@@ -102,18 +102,9 @@
                                     </label>
                                 </div>
                             </div>
-                            <div>
-                                <div class="relative mb-6">
-                                    <input id="txt_username" name="txt_username" type="text"
-                                        class="peer/username p-2 pe-10 h-10 mt-1 w-full rounded-md border-b-2 border-r border-l border-gray-300 text-gray-500 placeholder-transparent focus:outline-none focus:border-[#00BBE1] invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
-                                        placeholder="Username" />
-                                    <label for="txt_username"
-                                        class="absolute left-2 -top-4 text-gray-500 text-sm transition-all peer-placeholder-shown/username:text-base peer-placeholder-shown/username:text-gray-500 peer-placeholder-shown/username:top-3 peer-focus/username:-top-4 peer-focus/username:text-[#00BBE1] peer-focus/username:text-sm">Campo</label>
-                                    <!-- <span
-                                    class="pointer-events-none absolute inset-y-0 end-0 grid w-10 place-content-center align-middle text-gray-300 peer-focus/username:text-[#00BBE1]">
-                                    <font-awesome-icon :icon="['fas', 'user']" class="text-lg  " />
-                                </span> -->
-                                </div>
+                            <div class="col-span-2">
+                               <!-- <Tags v-model:tags="tags"/> -->
+                               <Tags @update:tags="(cTags:string[]) => tags = cTags"/>
                             </div>
                             <div>
                                 <div class="relative mb-6">
@@ -399,7 +390,11 @@ const toggleTabs = (tabNumber: number) => {
 }
 const { getTenants } = useTenant();
 const tok = useCookie('token'); 
-console.log(tok.value)
+const tags = ref<string[]>([])
+    // const getTags = (myTags:string[])=>{
+    //     tags.value = myTags
+    console.log(tags.value)
+    // }
 const tenants_var = ref({
 
     name: "test4",
@@ -419,7 +414,7 @@ const tenants = async () => {
     // } else {
     //     console.log('Empty')
     // }
-    await getTenants(tenants_var.value); // call authenticateUser and pass the user object
+    // await getTenants(tenants_var.value); // call authenticateUser and pass the user object
     // redirect to homepage if user is authenticated
     // if(errors && errors.value !== null){
     //     console.log(errors.value.data.message )
@@ -432,7 +427,7 @@ const tenants = async () => {
        // router.push('/');
     
     // }
-
+    console.log(tags.value)
 };
 
 </script>

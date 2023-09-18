@@ -48,7 +48,7 @@ const { title, duration, type, icon } = defineProps({
     },
     duration: {
         type: Number,
-        default: 2000
+        default: 3000
     },
     type: {
         type: String,

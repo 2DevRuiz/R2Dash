@@ -152,7 +152,7 @@
   const router = useRouter();
   const logout = () => {
       logUserOut();
-      router.push('/auth');
+      router.push('/login');
   };
   
   // modules of sideBar

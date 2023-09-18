@@ -3,7 +3,7 @@
     <!-- <div > --><Header @stateMen="toogleSide"/>
         <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 dark:bg-cyan-900 text-black dark:text-white">
             
-            <div class="h-full mt-14 mb-10" :class="[state_menu?'ml-20 md:ml-64':'ml-20 md:ml-10']">
+            <div class="h-full mt-14 mb-2" :class="[state_menu?'ml-20 md:ml-64':'ml-20 md:ml-10']">
                 <slot></slot>
             </div>
         </div>

@@ -30,7 +30,6 @@
                         </tr>
                     </thead>
                     <tbody class="text-sm divide-y divide-gray-300">
-
                         <tr v-for="(tableData, index) in tableRows" :key="index">
                             <td class="p-2 whitespace-nowrap text-center">
                                 {{ tableData }}
