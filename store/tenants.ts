@@ -21,19 +21,24 @@ export const useTenant = defineStore('tenant', {
   actions: {
     async getTenants({ name, domain,description,Tdefault,token }: UseTenant) {
       // useFetch from nuxt 3
-      const { data, status,error,pending}: any = await useFetch('http://192.168.31.14:8000/api/v1/tenants', {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json','Accept':'application/json','XSRF-TOKEN': 'vtaiOAzyX5QKO6RzEVBtPje8PHpX0WcfRClqTWm900753260'},
-        body: {
-          name,
-          domain,
-          description,
-          Tdefault,
-        },
+      const { data:tenants, status,error,pending}: any = await useFetch('http://softswitch.main:8000/api/v1/tenants', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json','Accept':'application/json','Authorization': 'Bearer '+token},
+        // body: {
+        //   // name,
+        //   // domain,
+        //   // description,
+        //   // Tdefault,
+        // },
       });
 
-      console.log(data.value)
-      console.log(error.value)
+      console.log(tenants.value.data[0])
+      // console.log(status.value)
+      // console.log(error.value)
+      // console.log(pending.value)
+      // console.log(data.value)
+      // console.log(data.value)
+      console.log(token)
 
 
       console.log("----------------------------")

@@ -35,7 +35,7 @@ const addTag = (event:any) => {
         console.log(tags.value);
     }
 }
-const removeTag = (index:any) =>{
+const removeTag = (index:number) =>{
     tags.value.splice(index,1)
 }
 const removeLastTag = (event:any) => {

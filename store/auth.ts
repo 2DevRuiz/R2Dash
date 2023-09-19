@@ -29,8 +29,8 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     // async authenticateUser({ email, password }: UserPayloadInterface) {
     //   // test for token value
-    //   const username = 'Administratore';
-    //   const { data:auth, status,error,pending}: any = await useFetch('http://192.168.31.14:8000/api/login', {
+    //   const username = 'Administrator';
+    //   const { data:auth, status,error,pending}: any = await useFetch('http://softswitch.main:8000/api/login', {
     //     method: 'post',
     //     headers: { 'Content-Type': 'application/json','Accept':'application/json' },
     //     body: {
@@ -39,7 +39,7 @@ export const useAuthStore = defineStore('auth', {
 
     //     },
     //   });
-    //   const {data:tok,error:error_token} = await useFetch('http://192.168.31.14:8000/api/v1/token', {
+    //   const {data:tok,error:error_token} = await useFetch('http://softswitch.main:8000/api/v1/token', {
     //     method: 'post',
     //     headers: { 'Content-Type': 'application/json','Accept':'application/json' },
     //     body: {

@@ -369,7 +369,7 @@
                     <template #title>
                         <div>table Dinamic</div>
                     </template>
-                    <DynamicTable />
+                    <DynamicTable2 @update:items="(cItems:any) => items_tables = cItems"/>
                 </CardData>
                 <!-- </div> -->
             </div>
@@ -391,9 +391,10 @@ const toggleTabs = (tabNumber: number) => {
 const { getTenants } = useTenant();
 const tok = useCookie('token'); 
 const tags = ref<string[]>([])
+const items_tables = ref([])
     // const getTags = (myTags:string[])=>{
     //     tags.value = myTags
-    console.log(tags.value)
+    // console.log(tags.value)
     // }
 const tenants_var = ref({
 
@@ -401,7 +402,7 @@ const tenants_var = ref({
 
     description: "test create tenant tenant 2",
 
-    domain: "192.168.31.24",
+    domain: "softswitch.main",
 
     Tdefault: false,
     token: (tok.value)?tok.value: ""
@@ -428,6 +429,10 @@ const tenants = async () => {
     
     // }
     console.log(tags.value)
+    console.log(items_tables.value)
 };
-
+watch(items_tables, (newVal, oldVal) => {
+    console.log("is change value for items")
+    console.log(newVal)
+}, {deep: true})
 </script>
