@@ -24,25 +24,27 @@ export const useAuthStore = defineStore('auth', () => {
   const isLoggedIn = computed(() => !!user.value)
 
   async function logout() {
-    await useApiFetch("/logout", {method: "POST"});
+    await useApiFetch("/api/logout", {method: "POST"});
     user.value = null;
+    const token = useCookie('XSRF-TOKEN')
+    token.value = null
     navigateTo("/auth");
   }
-
+ 
   async function fetchUser() {
-    const {data, error} = await useApiFetch("/api/user");
+    const {data, error} = await useApiFetch("/api/v1/user");
     user.value = data.value as User;
   }
 
   async function login(credentials: Credentials) {
-    // await useApiFetch("/sanctum/csrf-cookie");
+    await useApiFetch("/sanctum/csrf-cookie");
 
     const login = await useApiFetch("/api/login", {
       method: "POST",
       body: credentials,
     });
-
-    await fetchUser();
+    console.log(login)
+    // await fetchUser();//recordar descomentar
 
     return login;
   }

@@ -23,7 +23,11 @@ const form = ref({
   password: "password"
 });
  
-
+const form2 = ref({
+  email: "admin@softswitch.local",
+  password: "Adm1n@2023!!"
+});
+ 
 
 const auth = useAuthStore();
  
@@ -31,19 +35,10 @@ async function handleLogin() {
     if (auth.isLoggedIn) {
         return navigateTo("/home");
     }
-  const {error} = await auth.login(form.value);
- 
+  const {error} = await auth.login(form2.value);
   if (!error.value) {
     return navigateTo("/home");
   }
-  console.log(error);
-    // await useApiFetch("/sanctum/csrf-cookie")
-
-    // await useApiFetch("/login",{
-    //     method:"POST",
-    //     body:form.value,
-    // })
-    // const {data} = await useApiFetch("/api/user")
-    // console.log(data.value)  
+  console.log(error.value);
 }
 </script>
