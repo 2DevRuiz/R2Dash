@@ -1,10 +1,14 @@
 <template>
-    <div class="p-20 min-h-screen w-full bg-slate-400">
-      <button v-if="auth.isLoggedIn" @click="handleLogout" class="bg-light-cyan p-2 rounded-md my-2 hover:bg-lime-400">Logout</button>
-   
-      <pre>{{ auth.user }}</pre>
-   
-      <ul class="flex justify-center gap-4 underline">
+    <div class="p-1 min-h-screen w-full bg-slate-400">
+      <!-- <pre>{{auth.user}}</pre> -->
+      <label for="">
+        Name:<small>{{ auth.user?.name }}</small>
+      </label>
+      <label for="">
+        Name:<small v-for="(item, index) in auth.user?.roles" :key="index">{{ item.name }}</small>
+      </label>
+      
+      <ul class="flex justify-center gap-4 underline py-2 items-center">
         <li>
           <NuxtLink to="/home">Home</NuxtLink>
         </li>
@@ -15,11 +19,12 @@
           <NuxtLink to="/auth">Login</NuxtLink>
         </li>
         <li>
-          <NuxtLink to="/auth-only">Auth only</NuxtLink>
+          <NuxtLink to="/auth-only">List Users</NuxtLink>
         </li>
         <li>
-          <NuxtLink to="/guest-only">Guest only</NuxtLink>
+          <NuxtLink to="/guest-only">List Tenants</NuxtLink>
         </li>
+        <li><button v-if="auth.isLoggedIn" @click="handleLogout" class="bg-light-cyan p-2 rounded-md  hover:bg-lime-400">Logout</button></li>
       </ul>
       <slot />
     </div>

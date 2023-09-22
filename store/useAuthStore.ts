@@ -5,6 +5,9 @@ type User = {
   id: number;
   name: string;
   email: string;
+  roles:Array<{
+    name:string;
+  }>;
 }
 
 type Credentials = {
@@ -17,6 +20,7 @@ type RegistrationInfo = {
   email: string;
   password: string;
   password_confirmation: string;
+  role:string;
 }
 
 export const useAuthStore = defineStore('auth', () => {
@@ -32,7 +36,8 @@ export const useAuthStore = defineStore('auth', () => {
   }
  
   async function fetchUser() {
-    const {data, error} = await useApiFetch("/api/v1/user");
+    const {data, error} = await useApiFetch("/api/v1/AutUser");
+    console.log(data);
     user.value = data.value as User;
   }
 
@@ -43,8 +48,7 @@ export const useAuthStore = defineStore('auth', () => {
       method: "POST",
       body: credentials,
     });
-    console.log(login)
-    // await fetchUser();//recordar descomentar
+    await fetchUser();//recordar descomentar
 
     return login;
   }
@@ -52,7 +56,7 @@ export const useAuthStore = defineStore('auth', () => {
   async function register(info: RegistrationInfo) {
     await useApiFetch("/sanctum/csrf-cookie");
 
-    const register = await useApiFetch("/register", {
+    const register = await useApiFetch("/api/v1/users", {
       method: "POST",
       body: info,
     });

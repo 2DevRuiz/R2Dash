@@ -103,8 +103,8 @@
                                 </div>
                             </div>
                             <div class="col-span-2">
-                               <!-- <Tags v-model:tags="tags"/> -->
-                               <Tags @update:tags="(cTags:string[]) => tags = cTags"/>
+                                <!-- <Tags v-model:tags="tags"/> -->
+                                <Tags @update:tags="(cTags: string[]) => tags = cTags" />
                             </div>
                             <div>
                                 <div class="relative mb-6">
@@ -362,6 +362,10 @@
                 <!-- </div> -->
             </div>
             <!--End:tabs -->
+            <div>
+                <button class="bg-light-cyan p-2 rounded-md hover:bg-blue-500" @click="openInfoModal">Open info
+                    modal</button>
+            </div>
             <!-- Start:Table Dynamic -->
             <div class="">
                 <!-- <div class="w-full h-10"> -->
@@ -369,7 +373,7 @@
                     <template #title>
                         <div>table Dinamic</div>
                     </template>
-                    <DynamicTable2 @update:items="(cItems:any) => items_tables = cItems"/>
+                    <DynamicTable2 @update:items="(cItems: any) => items_tables = cItems" />
                 </CardData>
                 <!-- </div> -->
             </div>
@@ -380,22 +384,30 @@
 </template>
 <script lang="ts" setup>
 import { useTenant } from '~/store/tenants';
+import useModalStore from "~/store/useModalstore";
+import InfoModalWindows from '~/components/ModalsComponents/InfoModalWindows.vue';
 definePageMeta({
-    middleware: 'auth' // this should match the name of the file inside the middleware directory 
+    // middleware: 'auth' // this should match the name of the file inside the middleware directory 
 })
 const openTab = ref(1)
-
+const store = useModalStore();
 const toggleTabs = (tabNumber: number) => {
     openTab.value = tabNumber
 }
 const { getTenants } = useTenant();
-const tok = useCookie('token'); 
+const tok = useCookie('token');
 const tags = ref<string[]>([])
 const items_tables = ref([])
-    // const getTags = (myTags:string[])=>{
-    //     tags.value = myTags
-    // console.log(tags.value)
-    // }
+// const getTags = (myTags:string[])=>{
+//     tags.value = myTags
+// console.log(tags.value)
+// }
+function openInfoModal() {
+  store.openModal({
+    component: InfoModalWindows,
+    props: { text: "Props have been successfully passed!" },
+  });
+}
 const tenants_var = ref({
 
     name: "test4",
@@ -405,7 +417,7 @@ const tenants_var = ref({
     domain: "softswitch.main",
 
     Tdefault: false,
-    token: (tok.value)?tok.value: ""
+    token: (tok.value) ? tok.value : ""
 
 })
 
@@ -425,8 +437,8 @@ const tenants = async () => {
     //     console.log("loading.....")
     // }
     // else {
-       // router.push('/');
-    
+    // router.push('/');
+
     // }
     console.log(tags.value)
     console.log(items_tables.value)
@@ -434,5 +446,5 @@ const tenants = async () => {
 watch(items_tables, (newVal, oldVal) => {
     console.log("is change value for items")
     console.log(newVal)
-}, {deep: true})
+}, { deep: true })
 </script>

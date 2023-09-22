@@ -7,6 +7,8 @@
                 <slot></slot>
             </div>
         </div>
+        
+    <ModalTem/>
     <!-- </div> -->
 </template>
 
