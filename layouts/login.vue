@@ -1,11 +1,13 @@
 <template>
+  
+  <XModal/>
     <div class="p-1 min-h-screen w-full bg-slate-400">
       <!-- <pre>{{auth.user}}</pre> -->
       <label for="">
-        Name:<small>{{ auth.user?.name }}</small>
+        Name: <small> {{ auth.user?.name }}</small>
       </label>
       <label for="">
-        Name:<small v-for="(item, index) in auth.user?.roles" :key="index">{{ item.name }}</small>
+        Name: <small > {{ auth.user?.role }}</small>
       </label>
       
       <ul class="flex justify-center gap-4 underline py-2 items-center">

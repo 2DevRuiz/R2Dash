@@ -30,7 +30,7 @@ export function useApiFetch<T>(path: string, options: UseFetchOptions<T> = {}) {
   //   },
   // });
   // const token = useCookie("XSRF-TOKEN");
-  return useFetch("http://localhost:8000" + path, {
+  return useFetch("http://localhost:8000" + path,{
     credentials: "include",
     watch: false,
     ...options,

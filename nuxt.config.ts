@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     classSuffix: ''
   },
   ssr:false,
+  spaLoadingTemplate: 'spa-loading-template.html',
   devtools: { enabled: true },
   app: {
     head: {

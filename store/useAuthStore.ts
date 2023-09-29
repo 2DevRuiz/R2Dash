@@ -5,9 +5,7 @@ type User = {
   id: number;
   name: string;
   email: string;
-  roles:Array<{
-    name:string;
-  }>;
+  role:string;
 }
 
 type Credentials = {
@@ -38,7 +36,7 @@ export const useAuthStore = defineStore('auth', () => {
   async function fetchUser() {
     const {data, error} = await useApiFetch("/api/v1/AutUser");
     console.log(data);
-    user.value = data.value as User;
+    user.value = data.value?.data as User;
   }
 
   async function login(credentials: Credentials) {

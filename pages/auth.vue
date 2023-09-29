@@ -2,11 +2,11 @@
       <form @submit.prevent="handleLogin">
     <label>
       Email
-      <input v-model="form.email" type="email">
+      <input v-model="form2.email" type="email">
     </label>
     <label>
       Password
-      <input v-model="form.password" type="password">
+      <input v-model="form2.password" type="password">
     </label>
  
     <button class="bg-lime-50 p-2 rounded-md m-5">Login</button>

@@ -1,5 +1,6 @@
 <template>
     <BasicNotification /> 
+    <XModal/>
     <!-- <div > --><Header @stateMen="toogleSide"/>
         <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 dark:bg-cyan-900 text-black dark:text-white">
             
@@ -25,4 +26,5 @@ const toogleSide = (state:boolean) =>{
     // console.log("state ->12345657")
     state_menu.value = state
 }
+
 </script>
