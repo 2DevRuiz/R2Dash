@@ -41,7 +41,7 @@
 
                                         <span
                                             class="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs">
-                                            Email
+                                            Email2
                                         </span>
                                     </label>
                                 </div>
@@ -363,7 +363,7 @@
             </div>
             <!--End:tabs -->
             <div>
-                <button class="bg-light-cyan p-2 rounded-md hover:bg-blue-500" @click="handleOnClickOpenModal">Open info
+                <button class="bg-light-cyan p-2 rounded-md hover:bg-blue-500" @click="openInfoModal()">Open info
                     modal</button>
             </div>
             <!-- Start:Table Dynamic -->

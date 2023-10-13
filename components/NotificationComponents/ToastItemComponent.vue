@@ -66,6 +66,7 @@ const { title, duration, type, icon } = defineProps({
 onMounted(() => {
     setTimeout(() => emit('remove'), duration);
 });
+
 const bgClass = computed(() => {
   switch (type) {
     case 'info':
@@ -135,5 +136,5 @@ const closeBtnClass = computed(() => {
         default:
             return 'text-indigo-900';
     }
-})
+});
 </script>

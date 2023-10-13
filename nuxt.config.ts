@@ -3,6 +3,14 @@ export default defineNuxtConfig({
   colorMode: {
     classSuffix: ''
   },
+  runtimeConfig: {
+    // Config within public will be also exposed to the client
+    public: {
+      BASE_API_URL: `${process.env.API_BASE_URL}` || 'http://softswitch.main:8000',
+      APP_BASE_URL:`${process.env.APP_BASE_URL}` || 'http://localhost:3000',
+      // BASE_API_BROWSER_URL: '${BASE_API_BROWSER_URL}'
+    }
+  },
   ssr:false,
   spaLoadingTemplate: 'spa-loading-template.html',
   devtools: { enabled: true },
@@ -55,6 +63,7 @@ export default defineNuxtConfig({
     { path: '~/components/CardsComponents', pathPrefix: false }, 
     { path: '~/components/ChartComponents', pathPrefix: false }, 
     { path: '~/components/ModalsComponents', pathPrefix: false }, 
+    { path: '~/components/NewBaseModal', pathPrefix: false }, 
     { path: '~/components/NotificationComponents', pathPrefix: false }, 
     { path: '~/components/FormsComponents', pathPrefix: false }, 
     '~/components'
