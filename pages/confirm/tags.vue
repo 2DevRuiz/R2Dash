@@ -1,0 +1,15 @@
+<template>
+    <SearchAutocomplete
+      :items="[
+        'Apple',
+        'Banana',
+        'Orange',
+        'Mango',
+        'Pear',
+        'Peach',
+        'Grape',
+        'Tangerine',
+        'Pineapple'
+      ]"
+    />
+</template>
