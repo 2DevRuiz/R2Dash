@@ -54,13 +54,43 @@ function handleResult(value: boolean) {
 </script>
 
 <template>
-    <div class="w-full h-screen bg-light-cyan flex items-center justify-center">
-        <button type="button" class="bg-indigo-200 px-3 py-1 font-medium rounded-md hover:bg-indigo-300"
-            @click="showDialog = !showDialog">
-            Hello World
-        </button>
-    </div>
-    <!-- Dialog 1 -->
+  <div class="w-full h-screen bg-light-cyan flex items-center justify-center">
+    <!-- <button type="button" class="bg-indigo-200 px-3 py-1 font-medium rounded-md hover:bg-indigo-300"
+      @click="showDialog = !showDialog">
+      Hello World
+    </button> -->
+    <!-- <div class="relative">
+      <select
+        class="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline focus:border-blue-300"
+        id="mySelect">
+        <option value="" disabled ></option>
+        <option value="opcion1">Opción 1</option>
+        <option value="opcion2">Opción 2</option>
+        <option value="opcion3">Opción 3</option>
+      </select>
+      <label for="mySelect"
+        class="absolute top-0 left-0 px-1 text-gray-600 transform translate-y-2 origin-0 transition-all duration-300">Selecciona
+        una opción</label>
+    </div> -->
+    <div class="relative flex w-full">
+        <select
+          id="select-role"
+          name="roles[]"
+          placeholder="Select roles..."
+          autocomplete="off"
+          class="block w-full rounded-sm cursor-pointer focus:outline-none"
+          multiple
+        >
+          <option value="1">super admin</option>
+          <option value="2">admin</option>
+          <option value="3">writer</option>
+          <option value="4">user</option>
+        </select>
+      </div>
+
+
+  </div>
+  <!-- Dialog 1 -->
   <!-- <ConfirmationDialog :show="showDialog" @result="handleResult" /> -->
   <!-- Dialog 2 -->
   <!-- <ConfirmationDialog :show="showDialog" @result="handleResult">
@@ -101,13 +131,10 @@ function handleResult(value: boolean) {
     </template>
   </ConfirmationDialog> -->
   <!-- Dialog 4 -->
-  <ConfirmationDialog
-    v-slot="{ emitResult }"
-    :show="showDialog"
-    @result="handleResult">
+  <ConfirmationDialog v-slot="{ emitResult }" :show="showDialog" @result="handleResult">
     <div class="bg-black p-3 text-lg font-bold text-white rounded-t-lg">
-        <font-awesome-icon :icon="['fas', 'triangle-exclamation']" />
-        A very custom title
+      <font-awesome-icon :icon="['fas', 'triangle-exclamation']" />
+      A very custom title
     </div>
 
     <div class="p-4">
@@ -131,18 +158,17 @@ function handleResult(value: boolean) {
         </button>
       </div> -->
       <div class="flex justify-between pt-5 w-full">
-            <div>
-                <button class="bg-pink-600 px-4 py-2 text-sm font-bold text-white" @click="emitResult(false)">
-                NOPE NOPE NOPE
-                </button>
-            </div>
-
-            <div>
-                <button class="bg-sky-600 px-4 py-2 text-sm font-bold text-white" @click="emitResult(true)">
-                YEP
-                </button>
-            </div>
+        <div>
+          <button class="bg-pink-600 px-4 py-2 text-sm font-bold text-white" @click="emitResult(false)">
+            NOPE NOPE NOPE
+          </button>
         </div>
-    </div>
-  </ConfirmationDialog>
-</template>
+
+        <div>
+          <button class="bg-sky-600 px-4 py-2 text-sm font-bold text-white" @click="emitResult(true)">
+            YEP
+          </button>
+        </div>
+      </div>
+  </div>
+</ConfirmationDialog></template>

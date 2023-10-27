@@ -37,13 +37,14 @@
                     </div>
                   </label> -->
                   <label class="relative inline-block w-10 h-6 rounded-full">
-                    <input type="checkbox" class="peer opacity-0 w-0 h-0" :value="item.name">
+                    <input type="checkbox" class="peer opacity-0 w-0 h-0" :value="item.name" v-model="form.selected">
                     <span
                       class="absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 rounded-full duration-300 before:content-[''] before:absolute before:w-4 before:h-4 before:bottom-1 before:left-1 before:rounded-full
                                 before:bg-white before:duration-300 peer-checked:before:translate-x-4 peer-checked:bg-blue-500"></span>
                   </label>
                 </td>
               </tr>
+
               <tr class="" v-if="showDetails[index]">
                 <td colspan="2" class="text-center">
                   <div class="m-4 space-x-14">
