@@ -35,17 +35,17 @@ const menuTree:any = [
             {
                 label: 'Users',
                 icon: 'user-group',
-                to: '/users',
+                to: '/',
             },
             {
                 label: 'Roles',
                 icon: 'shield-halved',
-                to: '/roles',
+                to: '/',
             },
             {
                 label: 'Tenants',
                 icon: 'fa-arrows-down-to-people',
-                to: '/tenants',
+                to: '/',
             }
         ]
     },
@@ -56,17 +56,17 @@ const menuTree:any = [
             {
                 label: 'Users',
                 icon: 'user-group',
-                to: '/users',
+                to: '/',
             },
             {
                 label: 'Roles',
                 icon: 'shield-halved',
-                to: '/roles',
+                to: '/',
             },
             {
                 label: 'Tenants',
                 icon: 'fa-arrows-down-to-people',
-                to: '/tenants',
+                to: '/',
             }
         ]
     }

@@ -15,7 +15,7 @@
 </template>
 <script lang="ts" setup>
 const state_menu = ref(true)
-const emits = defineEmits();
+const emits = defineEmits(['stateMen']);
 const toogleMenu = (state:boolean)=>{
   state_menu.value = state;
   // console.log(state_menu.value);

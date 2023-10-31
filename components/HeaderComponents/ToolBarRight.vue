@@ -11,7 +11,7 @@
 
 
             <!-- Dropdown Content -->
-            <div v-if="open"
+            <div v-if="open" ref="dropdownContainerRef"
                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                     <div class=" mt-2 pl-6 pr-4 py-4 flex items-center justify-between bg-slate-400 dark:bg-gray-100">
@@ -110,6 +110,7 @@
 </template>
 <script lang="ts" setup>
 
+import useClickOutside from '@/composables/useClickOutside'
 import { storeToRefs } from 'pinia'; // import storeToRefs helper hook from pinia
 import { useAuthStore } from '~/store/auth'; // import the auth store we just created
 const open = ref(false)
@@ -119,24 +120,26 @@ const toggleDropdown = () => {
 };
 
 const dropdownContainerRef = ref<HTMLElement | null>(null);
-const closeDropdown = (event: Event) => {
-    const clickedOutsideMenu = !dropdownContainerRef.value?.contains(event.target as Node);
-    const clickedInsideMenu = dropdownContainerRef.value?.contains(event.target as Node);
-    
-    if (clickedOutsideMenu && !clickedInsideMenu) {
-        // console.log(clickedInsideMenu)
-        open.value = false;
-    }
-};
+// const closeDropdown = (event: Event) => {
+//     const clickedOutsideMenu = !dropdownContainerRef.value?.contains(event.target as Node);
+//     const clickedInsideMenu = dropdownContainerRef.value?.contains(event.target as Node);
+//     console.log(clickedOutsideMenu)
+//     if (clickedOutsideMenu && !clickedInsideMenu) {
+//         // console.log(clickedInsideMenu)
+//         open.value = false;
+//     }
+// };
 
-onMounted(() => {
-    document.addEventListener("click", closeDropdown);
+// onMounted(() => {
+//     document.addEventListener("click", closeDropdown);
+// });
+
+// onUnmounted(() => {
+//     document.removeEventListener("click", closeDropdown);
+// });
+useClickOutside(dropdownContainerRef, () => {
+    open.value = false
 });
-
-onUnmounted(() => {
-    document.removeEventListener("click", closeDropdown);
-});
-
 const router = useRouter();
 
 const { logUserOut } = useAuthStore(); // use authenticateUser action from  auth store
