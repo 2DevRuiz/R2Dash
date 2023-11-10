@@ -36,7 +36,6 @@ export const useAuthStore = defineStore('auth', {
     //     body: {
     //       email,
     //       password,
-
     //     },
     //   });
     //   const {data:tok,error:error_token} = await useFetch('http://softswitch.main:8000/api/v1/token', {

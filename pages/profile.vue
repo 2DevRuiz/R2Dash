@@ -363,7 +363,7 @@
             </div>
             <!--End:tabs -->
             <div>
-                <button class="bg-light-cyan p-2 rounded-md hover:bg-blue-500" @click="openInfoModal()">Open info
+                <button class="bg-light-cyan p-2 rounded-md hover:bg-blue-500" @click="handleOnClickOpenModal">Open info
                     modal</button>
             </div>
             <!-- Start:Table Dynamic -->
