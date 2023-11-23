@@ -13,12 +13,10 @@
                     <div
                         class="relative flex flex-col w-full pointer-events-auto bg-white border border-gray-300 rounded-lg">
                         <!-- Header Section -->
-                        <div class="text-lg font-semibold leading-normal flex items-start justify-between p-3 border-b border-gray-300 rounded-t">
+                        <div class="flex items-start justify-between p-3 border-b border-gray-300 rounded-t">
 
-                            <slot name="modal-title" :close="close">
-                                <h5 class="mb-0 ">Modal title</h5>
-                            </slot>
-                            <slot name="closeBtn" :close="close">
+                            <slot name="header">
+                                <h5 class="mb-0 text-lg leading-normal">Modal title</h5>
                                 <button type="button"
                                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                                     @click="close">
@@ -29,8 +27,8 @@
                         <!-- Header Section -->
                         <!-- Body Section -->
                         <div class="relative top-0 p-3 mb-1  rounded-xl">
-
-                            <slot name="modal-body">
+                            
+                            <slot name="body">
                                 .....
                             </slot>
                         </div>
@@ -51,18 +49,33 @@
         </div>
     </transition>
 </template>
-<script lang="ts" setup>
-import { emit } from 'process';
+  
+<script lang="ts">
+import { onMounted, onUnmounted } from "vue";
 
-const { open } = defineProps({
-    open: {
-        type: Boolean,
-        required: true
-    }
-})
-const emit = defineEmits(['close'])
-const close = () => {
-    emit('close')
-}
+export default {
+    props: {
+        open: {
+            type: Boolean,
+            required: true,
+        },
+    },
+    setup(_, { emit }) {
+        const close = () => {
+            emit("close");
+        };
 
+        const handleKeyup = (event: any) => {
+            if (event.keyCode === 27) {
+                close();
+            }
+        };
+
+        onMounted(() => document.addEventListener("keyup", handleKeyup));
+        onUnmounted(() => document.removeEventListener("keyup", handleKeyup));
+
+        return { close };
+    },
+};
 </script>
+  

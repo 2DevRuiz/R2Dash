@@ -1,7 +1,7 @@
-<template >
-  <div id="modals"></div>
-  <NuxtLayout >
-    <NuxtPage/>
+<template>
+  <NuxtLayout>
+    <div id="modals"></div>
+    <NuxtPage />
   </NuxtLayout>
 </template>
 
