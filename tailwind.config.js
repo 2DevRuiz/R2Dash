@@ -26,7 +26,9 @@ module.exports = {
 
       animation: {
         fullBorder: 'backGround 6s ease infinite',
-        progressBar: 'progressBar 6s linear infinite'
+        progressBar: 'progressBar 6s linear infinite',
+        coming:'in_left 1s ease-in-out ',
+        out:'in_left 1s ease-in-out reverse '
       },
       keyframes: {
         backGround: {
@@ -41,8 +43,28 @@ module.exports = {
           '100%': {
             width: '100%'
           }
-        }
-
+        },
+        in_left: {
+          from: {
+            opacity: '0',
+            transform: 'translateX(-50px)',
+          },
+          to: {
+            opacity: '.5',
+            transform: 'translateX(0)',
+          },
+         },
+         
+         out_left:{
+          from: {
+            opacity: '.5',
+            transform: 'translateX(50px)',
+          },
+          to: {
+            opacity: '1',
+            transform: 'translateX(0)',
+          },
+         }
       },
     },
   },
