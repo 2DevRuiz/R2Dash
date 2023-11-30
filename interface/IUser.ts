@@ -6,6 +6,7 @@ interface IUser {
     password:string;
     image:string;
     username:string;
+    email:string;
     // population:number
     // region:string
     // id?:number,

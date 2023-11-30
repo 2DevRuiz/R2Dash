@@ -11,7 +11,7 @@
                 <!-- modal -->
                 <div class="relative max-w-3xl w-auto mx-auto top-1/2 transform -translate-y-1/2 rounded-md" v-show="open">
                     <div
-                        class="relative flex flex-col w-full pointer-events-auto bg-white border border-gray-300 rounded-lg">
+                        class="relative flex flex-col w-full pointer-events-auto bg-white dark:bg-gray-800 border border-gray-300 rounded-lg">
                         <!-- Header Section -->
                         <div class="text-lg font-semibold leading-normal flex items-start justify-between p-3 border-b border-gray-300 rounded-t">
 
@@ -52,7 +52,6 @@
     </transition>
 </template>
 <script lang="ts" setup>
-import { emit } from 'process';
 
 const { open } = defineProps({
     open: {

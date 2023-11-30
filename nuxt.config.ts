@@ -67,6 +67,7 @@ export default defineNuxtConfig({
     { path: '~/components/NotificationComponents', pathPrefix: false }, 
     { path: '~/components/FormsComponents', pathPrefix: false }, 
     { path: '~/components/MultipleModal', pathPrefix: false }, 
+    { path: '~/components/Tables', pathPrefix: false }, 
     '~/components'
   ],
   modules: [

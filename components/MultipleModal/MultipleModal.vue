@@ -5,24 +5,25 @@
         </template>
         <template v-slot:modal-body>
             <div class="w-full">
-                <div class=" grid grid-cols-1 md:grid-cols-2 divide-x-2 divide-x-gray-900">
+                <div class=" grid grid-cols-1 md:grid-cols-2 divide-x-2 divide-gray-300 dark:divide-gray-400">
                     <div class="w-full">
-                        <div class="flex flex-row bg-[#d2d3d4] ">
+                        <div class="flex flex-row bg-gray-500 dark:bg-gray-200">
                             <div class="w-full">
-                                <div class="flex justify-between items-center flex-wrap p-1">
-                                    <span
-                                        class=" capitalize text-green-500 cursor-pointer flex justify-between items-center gap-2 bg-slate-50 p-2 rounded hover:bg-slate-200">
+                                <div class="flex justify-between items-center flex-wrap flex-grow p-1">
+                                    <button type="button"
+                                        class=" capitalize text-green-500 cursor-pointer flex justify-between items-center gap-2 bg-gray-50 p-2 rounded hover:bg-gray-500">
                                         <font-awesome-icon :icon="['fas', 'plus']" />
                                         Select All
-                                    </span>
-                                    <label for="Search" class="hidden">Search</label>
+                                    </button>
+                                    <!-- <label for="Search" class="hidden">Search</label>
                                     <div class="relative">
                                         <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                                             <font-awesome-icon :icon="['fas', 'search']" />
                                         </span>
                                         <input type="search" name="Search" placeholder="Search..."
                                             class="w-32 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none dark:bg-gray-800 dark:text-gray-100 focus:dark:bg-gray-900 focus:dark:border-violet-400">
-                                    </div>
+                                    </div> -->
+                                    <SearchInput @search="handleSearch" />
                                 </div>
                             </div>
                             <!-- <div class="w-full">
@@ -57,14 +58,33 @@
                                     </div>
                                 </div>
                             </transition-group> -->
-                            <TransitionGroup name="item" tag="div" enter-from-class="translate-x-[-10%] -z-[999] opacity-0"
+                            <!-- <TransitionGroup name="item" tag="div" enter-from-class="translate-x-[-10%] -z-[999] opacity-0"
                                 enter-active-class="duration-700" leave-active-class="duration-700"
                                 leave-to-class="translate-x-[-3%] -z-[999] opacity-0">
                                 <div v-for="(item, index) in elements()" :key="item.name"
                                     class="w-full p-2  border-b-2 border-gray-300">
                                     <div class="w-full flex justify-center items-center cursor-pointer"
                                         @click="addItem(item)">
-                                        {{ item.name }} + {{ isSelected(item) }}
+                                        {{ item.name }} 
+                                    </div>
+                                </div>
+                            </TransitionGroup> -->
+                            <TransitionGroup name="item" tag="div" enter-from-class="translate-x-[-10%] -z-[999] opacity-0"
+                                enter-active-class="duration-700" leave-active-class="duration-700"
+                                leave-to-class="translate-x-[-3%] -z-[999] opacity-0">
+                                <div v-for="(item, index) in filteredItems" :key="item.name"
+                                    class="w-full p-2  border-b border-gray-300 group hover:bg-slate-100">
+
+                                    <div class="w-full flex flex-row justify-between items-center cursor-pointer group-hover:text-black"
+                                        @click="addItem(item)">
+                                        <span class="relative mr-2">
+                                            {{ item.name }}
+                                        </span>
+                                        <span class="mr-2 ">
+                                            <span class="rounded-full w-5 h-5 flex justify-center items-center  bg-gray-300 dark:bg-gray-500 hover:bg-green-300 p-3">
+                                                <font-awesome-icon :icon="['fas', 'plus']" />
+                                            </span>
+                                        </span>
                                     </div>
                                 </div>
                             </TransitionGroup>
@@ -72,10 +92,10 @@
                     </div>
                     <div class="w-full ">
                         <div class="w-full">
-                            <div class="flex flex-row bg-[#d2d3d4]">
+                            <div class="flex flex-row bg-gray-500 dark:bg-gray-200">
                                 <div class="flex justify-between items-center flex-wrap p-1">
                                     <span
-                                        class=" capitalize text-green-500 cursor-pointer flex justify-between items-center gap-2 bg-slate-50 p-2 rounded hover:bg-slate-200">
+                                        class=" capitalize text-green-500 cursor-pointer flex justify-between items-center gap-2 bg-gray-50 p-2 rounded hover:bg-slate-200">
                                         <font-awesome-icon :icon="['fas', 'plus']" />
                                         Remove All
                                     </span>
@@ -96,14 +116,26 @@
                                         </div>
                                     </div>
                                 </transition-group> -->
-                                <TransitionGroup name="item-selected" tag="div" enter-from-class="translate-x-[-7%] -z-[999] opacity-0"
-                                enter-active-class="duration-700" leave-active-class="duration-700"
-                                leave-to-class="translate-x-[-3%] opacity-0 -z-[999]">
+                                <TransitionGroup name="item-selected" tag="div"
+                                    enter-from-class="translate-x-[-7%] -z-[999] opacity-0"
+                                    enter-active-class="duration-700" leave-active-class="duration-700"
+                                    leave-to-class="translate-x-[-3%] opacity-0 -z-[999]">
                                     <div v-for="(item, index) in selected" :key="item.name"
-                                        class="w-full p-2 border-b-2 border-gray-300">
+                                        class="w-full p-2 border-b border-gray-300 group hover:bg-slate-100">
 
-                                        <div class="w-full flex justify-center items-center cursor-pointer"  @click="removeItem(item)">
-                                            {{ item.name }} + {{ isSelected(item) }}
+                                        <div class="w-full flex justify-center items-center cursor-pointer group-hover:text-black"
+                                            @click="removeItem(item)">
+                                            <div class="w-full flex flex-row justify-between items-center cursor-pointer"
+                                                @click="addItem(item)">
+                                                <span class="relative mr-2">
+                                                    {{ item.name }}
+                                                </span>
+                                                <span class="mr-2 ">
+                                                    <span class="rounded-full w-5 h-5 flex justify-center items-center bg-gray-300 dark:bg-gray-500 hover:bg-red-200 p-3">
+                                                        <font-awesome-icon :icon="['fas', 'minus']" />
+                                                    </span>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </TransitionGroup>
@@ -146,6 +178,9 @@ const items = [
     {
         name: 'Jordin Lavern',
     },
+    {
+        name: 'Pedrin Bennington',
+    },
 ]
 const allItems = ref([...items])
 const selected: any = ref([]);
@@ -154,7 +189,19 @@ const emit = defineEmits(['close'])
 const close = () => {
     emit('close')
 }
-
+const searchFilter = ref('');
+const handleSearch = (search: any) => {
+    searchFilter.value = search
+}
+const filteredItems = computed(() => {
+    let items = elements();
+    //return props.items.filter((item: any) => item.maidenName === 'Cole')
+    if (searchFilter.value !== '') {
+        return items.filter((item: any) => item.name.toLocaleLowerCase().includes(searchFilter.value.toLocaleLowerCase()));
+        // return items.filter((item: any) => item.name.toLocaleLowerCase().includes(searchFilter.value) || item.name.includes(searchFilter.value));
+    }
+    return items;
+})
 const addItem = (item: any) => {
     // console.log(allItems.value)
     selected.value.push(...allItems.value.filter((i: any) => i.name === item.name));
@@ -181,13 +228,19 @@ function isSelected(item: any) {
 }
 function elements() {
 
-    return allItems.value.filter((item) => {
+    let items = allItems.value.filter((item) => {
         const hasAdded = selected.value.some((selectedItem: any) => selectedItem.name === item.name)
         if (!hasAdded) {
             return item.name.toLocaleLowerCase()
 
         }
     })
+
+
+    return items
+}
+const selectAll = () => {
+    selected.value = [...allItems.value]
 }
 function beforeLeave(el: any) {
     const { marginLeft, marginTop, width, height } = window.getComputedStyle(
