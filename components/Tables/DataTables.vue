@@ -77,7 +77,7 @@ const props = defineProps({
 const filteredItems = computed(() => {
     //return props.items.filter((item: any) => item.maidenName === 'Cole')
     if (searchFilter.value !== '') {
-        return props.items.filter((item: any) => item.maidenName.toLocaleLowerCase().includes(searchFilter.value) || item.email.toLocaleLowerCase().includes(searchFilter.value));
+        return props.items.filter((item: any) => item.maidenName.toLocaleLowerCase().includes(searchFilter.value.toLocaleLowerCase()) || item.email.toLocaleLowerCase().includes(searchFilter.value.toLocaleLowerCase()));
     }
     return props.items
 })

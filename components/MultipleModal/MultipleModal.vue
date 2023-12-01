@@ -7,13 +7,14 @@
             <div class="w-full">
                 <div class=" grid grid-cols-1 md:grid-cols-2 divide-x-2 divide-gray-300 dark:divide-gray-400">
                     <div class="w-full">
-                        <div class="flex flex-row bg-gray-500 dark:bg-gray-200">
+                        <div  class="flex flex-row bg-gray-200 h-12 dark:bg-gray-500">
                             <div class="w-full">
-                                <div class="flex justify-between items-center flex-wrap flex-grow p-1">
+                                <div v-show="elements().length > 0" class="flex justify-between items-center flex-wrap flex-grow p-1">
                                     <button type="button"
-                                        class=" capitalize text-green-500 cursor-pointer flex justify-between items-center gap-2 bg-gray-50 p-2 rounded hover:bg-gray-500">
+                                        class=" capitalize text-green-500 cursor-pointer flex justify-between items-center gap-2 bg-gray-50 p-2 rounded hover:bg-gray-300 hover:text-green-700"
+                                        @click="selectAll">
                                         <font-awesome-icon :icon="['fas', 'plus']" />
-                                        Select All
+                                        Select All 
                                     </button>
                                     <!-- <label for="Search" class="hidden">Search</label>
                                     <div class="relative">
@@ -81,7 +82,7 @@
                                             {{ item.name }}
                                         </span>
                                         <span class="mr-2 ">
-                                            <span class="rounded-full w-5 h-5 flex justify-center items-center  bg-gray-300 dark:bg-gray-500 hover:bg-green-300 p-3">
+                                            <span class="rounded-full w-5 h-5 flex justify-center items-center  bg-gray-300 dark:bg-gray-500 hover:bg-green-300 dark:hover:bg-green-300 p-3">
                                                 <font-awesome-icon :icon="['fas', 'plus']" />
                                             </span>
                                         </span>
@@ -92,13 +93,15 @@
                     </div>
                     <div class="w-full ">
                         <div class="w-full">
-                            <div class="flex flex-row bg-gray-500 dark:bg-gray-200">
+                            <div  class="flex h-12 flex-row bg-gray-200 dark:bg-gray-500">
                                 <div class="flex justify-between items-center flex-wrap p-1">
-                                    <span
-                                        class=" capitalize text-green-500 cursor-pointer flex justify-between items-center gap-2 bg-gray-50 p-2 rounded hover:bg-slate-200">
+                                    <button v-if="selected.length" type="button"
+                                    class=" capitalize text-green-500 cursor-pointer flex justify-between items-center gap-2 bg-gray-50 p-2 rounded hover:bg-gray-300 hover:text-green-700"
+                                    @click="removeAll">
+                                    
                                         <font-awesome-icon :icon="['fas', 'plus']" />
                                         Remove All
-                                    </span>
+                                    </button>
                                 </div>
                             </div>
                             <div class="flex flex-col mt-2">
@@ -131,7 +134,7 @@
                                                     {{ item.name }}
                                                 </span>
                                                 <span class="mr-2 ">
-                                                    <span class="rounded-full w-5 h-5 flex justify-center items-center bg-gray-300 dark:bg-gray-500 hover:bg-red-200 p-3">
+                                                    <span class="rounded-full w-5 h-5 flex justify-center items-center bg-gray-300 dark:bg-gray-500 hover:bg-red-300 dark:hover:bg-red-300 p-3">
                                                         <font-awesome-icon :icon="['fas', 'minus']" />
                                                     </span>
                                                 </span>
@@ -195,6 +198,7 @@ const handleSearch = (search: any) => {
 }
 const filteredItems = computed(() => {
     let items = elements();
+    console.log(items)
     //return props.items.filter((item: any) => item.maidenName === 'Cole')
     if (searchFilter.value !== '') {
         return items.filter((item: any) => item.name.toLocaleLowerCase().includes(searchFilter.value.toLocaleLowerCase()));
@@ -241,6 +245,9 @@ function elements() {
 }
 const selectAll = () => {
     selected.value = [...allItems.value]
+}
+const removeAll = () => {
+    selected.value = []
 }
 function beforeLeave(el: any) {
     const { marginLeft, marginTop, width, height } = window.getComputedStyle(
