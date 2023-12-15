@@ -70,8 +70,10 @@
                                     </div>
                                 </div>
                             </TransitionGroup> -->
-                            <TransitionGroup name="item" tag="div" enter-from-class="translate-x-[-10%] -z-[999] opacity-0"
-                                enter-active-class="duration-700" leave-active-class="duration-700"
+                            <TransitionGroup name="item" tag="div" 
+                                enter-from-class="translate-x-[-10%] -z-[999] opacity-0"
+                                enter-active-class="duration-700" 
+                                leave-active-class="duration-700"
                                 leave-to-class="translate-x-[-3%] -z-[999] opacity-0">
                                 <div v-for="(item, index) in filteredItems" :key="item.name"
                                     class="w-full p-2  border-b border-gray-300 group hover:bg-slate-100">

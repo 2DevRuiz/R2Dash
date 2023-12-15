@@ -34,16 +34,20 @@
     </div>
 </div>
 <MultipleModal :showModal="show" @close="show = false">
-
 </MultipleModal>
+
+
+<ModalDialog :show="showModal" @close="showModal = false"></ModalDialog>
 </template>
 
 <script lang="ts" setup>
 const message = "New Modal";
 const show = ref(false);
+const showModal = ref(false);
 function openModal() {
-    console.log(message  + " " + show.value);
-    show.value = true;
+    console.log(message  + " " + showModal.value);
+    // show.value = true;
+    showModal.value = true
 }
 
 

@@ -52,6 +52,8 @@
     </transition>
 </template>
 <script lang="ts" setup>
+// create a function to calculate a sum 
+ 
 
 const { open } = defineProps({
     open: {

@@ -32,7 +32,7 @@ const headerTable = ref([{ key: 'maidenName', label: 'Username' }, { key: 'email
 const paginateUser = ref<IUser[]>([])
 onMounted(async () => {
     await cService.fetchAll();
-    console.log(users.value.filter((user: any) => user.maidenName === 'Cole'))
+    // console.log(users.value.filter((user: any) => user.maidenName === 'Cole'))
 })
 
 function handleEditUserModal(user: any) {

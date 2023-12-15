@@ -1,7 +1,3 @@
-
-import { emit } from 'process';
-
-import { Input } from 'postcss';
 <template>
     <div class="block relative">
         <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
