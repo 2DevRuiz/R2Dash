@@ -17,7 +17,9 @@
                 </template>
             </DataTables2>
             <template #footer>
+                <div class="">
 
+                </div>
             </template>
         </CardData>
     </div>
@@ -28,7 +30,7 @@ import UserService from '~/store/useUser';
 
 const cService = new UserService();
 const users = cService.getUsers();
-const headerTable = ref([{ key: 'maidenName', label: 'Username' }, { key: 'email', label: 'Email' }, { key: 'age', label: 'Rol' }, { key: 'action', label: 'Action' }])
+const headerTable = ref([{ key: 'maidenName', label: 'Username',ordered: true }, { key: 'email', label: 'Email' }, { key: 'age', label: 'Rol' }, { key: 'action', label: 'Action' }])
 const paginateUser = ref<IUser[]>([])
 onMounted(async () => {
     await cService.fetchAll();

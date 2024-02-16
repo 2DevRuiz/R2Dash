@@ -1,9 +1,9 @@
 <template>
-    <div class="p-8">
+    <div class="p-2">
         <!-- Action Tables Header -->
         <div class="grid grid-cols-2">
             <div class="my-2 flex sm:flex-row flex-col">
-                <div class="flex flex-row  mb-1 sm:mb-0">
+                <div class="flex flex-row  mb-1 sm:mb-0" v-if="props.numberItems">
                     <!-- select count rows -->
                     <div class="relative">
                         <select
@@ -65,18 +65,38 @@
                     <thead class=" bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th v-for="field in displayedFields"
-                                class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600  text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                                class="px-5 py-3 border-b-2 border-gre-200 dark:border-gray-600  text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider group/tableHeader"
+                                :key="field.key" @click="sortTable(field.key)">
                                 <slot :name="`head(${field.key})`" :field="field">
                                     {{ field.label }}
+                                    <span
+                                        class="text-gray-200 mx-3  group-hover/tableHeader:text-gray-500  cursor-pointer dark:text-gray-400"
+                                        v-show="field.ordered"><!--esto se cambia que pueda mostar si la columna es ordenable-->
+                                        <!-- v-show="field.key !== 'action'"> esto es para validar si la columna tiene como nombre action  -->
+                                        <!-- <font-awesome-icon :icon="['fas',(currentSort.typeSorting === 'asc')?'caret-up':'caret-down']"  size="xl" :class="{'text-gray-500': currentSort.column === field.key}"/> -->
+                                        <!-- <font-awesome-icon v-if="currentSort.typeSorting === 'asc'" :icon="['fas', 'caret-up']"  size="xl" :class="{'text-gray-500': currentSort.column === field.key}"/>
+                                        <font-awesome-icon v-else :icon="['fas', 'caret-down']"  size="xl"/> -->
+                                        <!-- {{ currentSort.typeSorting === 'asc' ? '▲' : '▼' }} -->
+                                        <!-- <font-awesome-icon  :icon="['fas', 'caret-up']"  size="xl" :class="{'text-gray-500': currentSort.column === field.key}"/>
+                                        <font-awesome-icon  :icon="['fas', 'caret-down']"  size="xl"/> 
+                                     <i
+                                            :class="`fa-solid fa-${currentSort.typeSorting === 'desc' && currentSort.column === field.key ? 'arrow-up-z-a' : 'arrow-down-a-z'} fa-lg ${currentSort.column === field.key && (currentSort.typeSorting === 'asc' || currentSort.typeSorting === 'desc') ? 'tw-text-gray-500' : ''}`"></i>
+                                    
+                                    -->
+                                        <font-awesome-icon :icon="['fas', 'caret-up']" size="lg"
+                                            style="position: relative; top: -3px;"
+                                            :class="{ 'text-gray-500': currentSort.column === field.key && currentSort.typeSorting === 'asc' }" />
+                                        <font-awesome-icon :icon="['fas', 'caret-down']" size="lg"
+                                            style="position: relative; top: 3px;"
+                                            :class="{ 'text-gray-500': currentSort.column === field.key && currentSort.typeSorting === 'desc' }" />
+                                    </span>
                                 </slot>
                             </th>
                         </tr>
                     </thead>
                     <tbody class="bg-white dark:bg-gray-800">
                         <tr v-for="item in filteredItems" :key="item.name">
-
                             <template v-for="key in displayedFieldKeys">
-
                                 <Component :is="cellElement(key as string)"
                                     class="px-5 py-5 border-b border-gray-200 dark:border-gray-500  text-sm">
                                     <slot :name="`cell(${key})`" :value="format(item, (key as string))" :item="item"
@@ -84,8 +104,6 @@
                                         {{ format(item, (key as string)) }}
                                     </slot>
                                 </Component>
-
-
                             </template>
                         </tr>
                     </tbody>
@@ -121,17 +139,35 @@ const props = defineProps({
         type: Array,
         default: () => []
     },
+    numberItems: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
     caption: {
         type: String,
         default: null
     }
+});
+const initialSortField = computed(() => {
+    const orderedField: any = props.fields.find((field: any) => field.ordered);
+    console.log(orderedField)
+    return orderedField ? orderedField.key : null;
+});
+// const currentSort = ref({
+//     column: null,
+//     typeSorting: 'asc'
+// })
+const currentSort = ref({
+    column: initialSortField.value,
+    typeSorting: 'asc'
 })
 const searchFilter = ref('');
 
-const displayedFields = computed(() => props.fields.filter((i: any) => !i.hidden))
+const displayedFields: any = computed(() => props.fields.filter((i: any) => !i.hidden))
 
 const displayedFieldKeys = computed(() => {
-    const obj = Object.entries(displayedFields.value).map(([_key, value]) => value.key);
+    const obj = Object.entries(displayedFields.value).map(([_key, value]: any) => value.key);
     return obj
 })
 
@@ -141,14 +177,40 @@ const cellElement = (key: string) => {
 }
 
 const format = (item: any, key: string) => {
-    const field = props.fields.find((f: any) => f.key === key)
+    const field: any = props.fields.find((f: any) => f.key === key)
     return field && field.format ? field.format(item[key]) : item[key]
 }
 
 const handleSearch = (search: string) => {
     searchFilter.value = search
 }
-const filteredItems = computed(() => {
+
+const sortTable = (columnName: any) => {
+    console.log(columnName)
+    if (currentSort.value.column === columnName) {
+        console.log("true")
+        currentSort.value.typeSorting =
+            currentSort.value.typeSorting === 'asc' ? 'desc' : 'asc';
+    }
+    else {
+        console.log("false")
+        currentSort.value.column = columnName;
+        currentSort.value.typeSorting = 'asc'
+    }
+}
+
+const compareData = (a: any, b: any, columnName: any) => {
+    const valueA = a[columnName];
+    const valueB = b[columnName];
+
+    if (typeof valueA === 'string') {
+        return currentSort.value.typeSorting === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+    } else {
+        return currentSort.value.typeSorting === 'asc' ? valueA - valueB : valueB - valueA;
+    }
+}
+
+const filteredItems: any = computed(() => {
     const keys = displayedFieldKeys.value;
     //return props.items.filter((item: any) => item.maidenName === 'Cole')
     if (searchFilter.value !== '') {
@@ -193,7 +255,9 @@ const filteredItems = computed(() => {
             }
             return false;
         });
-        return filteredArray;
+        // const datosCopiados = [...props.items];
+        // return datosCopiados.sort((a, b) => compareData(a, b, currentSort.value.column));
+        return filteredArray.sort((a, b) => compareData(a, b, currentSort.value.column));
         // const keys = ['maidenName', 'email', 'age', 'action'];
         // return props.items.filter((item: any) => keys.some((key: string) => {
         //     console.log(item[key] === searchFilter.value.toLocaleLowerCase())
@@ -206,6 +270,8 @@ const filteredItems = computed(() => {
         // });
         // return props.items.filter((item: any) => item.maidenName.toLocaleLowerCase().includes(searchFilter.value.toLocaleLowerCase()) || item.email.toLocaleLowerCase().includes(searchFilter.value.toLocaleLowerCase()));
     }
-    return props.items
+    // const datosCopiados = [...props.items];
+    // return datosCopiados.sort((a, b) => compareData(a, b, currentSort.value.column));
+    return props.items.sort((a, b) => compareData(a, b, currentSort.value.column));
 })
 </script>

@@ -4,9 +4,7 @@
         <div
             class="mx-auto my-8 flex max-w-screen-sm rounded-xl border border-gray-100 p-4 text-left text-gray-600 shadow-lg sm:p-8 bg-white">
             <img class="mr-5 block h-8 w-8 max-w-full text-left align-middle sm:h-16 sm:w-16"
-                src="https://mighty.tools/mockmind-api/content/human/7.jpg"
-                
-                alt="Profile Picture" />
+                src="https://mighty.tools/mockmind-api/content/human/7.jpg" alt="Profile Picture" />
             <div class="w-full text-left">
                 <div class="mb-2 flex flex-col justify-between text-gray-600 sm:flex-row">
                     <h3 class="font-medium">Diana Anderson</h3>
@@ -16,8 +14,7 @@
                 <div class="mt-5 flex items-center justify-between text-gray-600">
                     <button
                         class="cursor-pointer border py-2 px-8 text-center text-xs leading-tight transition-colors duration-150 ease-in-out hover:border-gray-500 rounded-lg"
-                        @click="openModal()"
-                        >
+                        @click="openModal()">
                         Open Details
                     </button>
                     <a title="Likes" href="#" class="group flex cursor-pointer items-center justify-around">
@@ -30,25 +27,59 @@
                         12
                     </a>
                 </div>
+                <div class="mt-5 bg-orange-300 w-full cursor-pointer" @click="toogleModalMultiple('queues', true)">
+                    <span>
+                        {{ form.queues.length }} queues selected
+                    </span>
+                </div>
+                <div class="mt-5 bg-sky-300 w-full flex justify-between">
+                    <label for="" class="p-2 w-full flex"> Queues Selected</label>
+                    <span class="mx-3 bg-indigo-300 w-full" v-for="(item, index) in form.queues" :key="index">
+                        {{ item.name }}
+                    </span>
+                </div>
+                <div class="mt-5 bg-orange-300 w-full cursor-pointer" @click="toogleModalMultiple('agents', true)">
+                    <span>
+                        {{ form.agents.length }} agents selected
+                    </span>
+                </div>
+                <div class="mt-5 bg-sky-300 w-full flex justify-between">
+                    <label for="" class="p-2 w-full flex"> Queues Selected</label>
+                    <span class="mx-3 bg-indigo-300 w-full" v-for="(item, index) in form.agents" :key="index">
+                        {{ item.name }}
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<MultipleModal :showModal="show" @close="show = false">
-</MultipleModal>
+    <MultipleModal :source="modalSource" :showModal="openMultiModal" @close="v => openMultiModal = v"
+        v-model="form[modalSource]" :key="modalSource">
+    </MultipleModal>
 
 
-<ModalDialog :show="showModal" @close="showModal = false"></ModalDialog>
+    <ModalDialog :show="showModal" @close="showModal = false"></ModalDialog>
 </template>
 
 <script lang="ts" setup>
 const message = "New Modal";
 const show = ref(false);
 const showModal = ref(false);
-function openModal() {
-    console.log(message  + " " + showModal.value);
-    // show.value = true;
-    showModal.value = true
+const openMultiModal = ref(false);
+const modalSource = ref('queues');
+const form: any = {
+    queues: [],
+    agents: []
 }
 
+function openModal() {
+    // show.value = true;
+    showModal.value = true
+    console.log( form.queues.length)
+}
+function toogleModalMultiple(modal_Source: any, OpenMultiModal: any) {
+    console.log(modal_Source, OpenMultiModal)
+    modalSource.value = modal_Source;
+    openMultiModal.value = OpenMultiModal;
+}
 
 </script>

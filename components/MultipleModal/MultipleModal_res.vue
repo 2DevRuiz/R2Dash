@@ -16,11 +16,60 @@
                                         <font-awesome-icon :icon="['fas', 'plus']" />
                                         Select All 
                                     </button>
+                                    <!-- <label for="Search" class="hidden">Search</label>
+                                    <div class="relative">
+                                        <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                                            <font-awesome-icon :icon="['fas', 'search']" />
+                                        </span>
+                                        <input type="search" name="Search" placeholder="Search..."
+                                            class="w-32 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none dark:bg-gray-800 dark:text-gray-100 focus:dark:bg-gray-900 focus:dark:border-violet-400">
+                                    </div> -->
                                     <SearchInput @search="handleSearch" />
-                                </div>b
+                                </div>
                             </div>
+                            <!-- <div class="w-full">
+
+                            </div> -->
                         </div>
                         <div class="flex flex-col mt-2">
+                            <!-- <transition-group enter="animate-out" leave="animate-comming"
+                                enter-active-class="transition-all duration-500"
+                                leave-active-class="transition-all duration-500" tag="div">
+                                <div v-for="(item, index) in  elements()" :key="index"
+                                    class="w-full p-2 bg-orange-300 border-b-2 border-gray-300">
+                                    <div class="w-full flex justify-center items-center cursor-pointer" :class="{
+                                        'animate-out': isSelected(item),
+                                        'animate-coming': !isSelected(item)
+                                    }" @click="addItem(item)">
+                                        {{ item.name }}
+                                    </div>
+                                </div>
+                            </transition-group> -->
+                            <!-- <transition-group enter="animate-coming" leave="animate-out"
+                                enter-active-class="transition-all duration-100"
+                                leave-active-class="transition-all duration-400" tag="div">
+                                <div v-for="(item, index) in elements()" :key="item.name"
+                                    class="w-full p-2 bg-orange-300 border-b-2 border-gray-300">
+                                    <div class="w-full flex justify-center items-center cursor-pointer" 
+                                    :class="{
+                                        'animate-out bg-red-600': isSelected(item),
+                                        'animate-coming bg-cyan-600': !isSelected(item)
+                                    }" @click="addItem(item)">
+                                        {{ item.name }} + {{ isSelected(item) }}
+                                    </div>
+                                </div>
+                            </transition-group> -->
+                            <!-- <TransitionGroup name="item" tag="div" enter-from-class="translate-x-[-10%] -z-[999] opacity-0"
+                                enter-active-class="duration-700" leave-active-class="duration-700"
+                                leave-to-class="translate-x-[-3%] -z-[999] opacity-0">
+                                <div v-for="(item, index) in elements()" :key="item.name"
+                                    class="w-full p-2  border-b-2 border-gray-300">
+                                    <div class="w-full flex justify-center items-center cursor-pointer"
+                                        @click="addItem(item)">
+                                        {{ item.name }} 
+                                    </div>
+                                </div>
+                            </TransitionGroup> -->
                             <TransitionGroup name="item" tag="div" 
                                 enter-from-class="translate-x-[-10%] -z-[999] opacity-0"
                                 enter-active-class="duration-700" 
@@ -28,6 +77,7 @@
                                 leave-to-class="translate-x-[-3%] -z-[999] opacity-0">
                                 <div v-for="(item, index) in filteredItems" :key="item.name"
                                     class="w-full p-2  border-b border-gray-300 group hover:bg-slate-100">
+
                                     <div class="w-full flex flex-row justify-between items-center cursor-pointer group-hover:text-black"
                                         @click="addItem(item)">
                                         <span class="relative mr-2">
@@ -50,12 +100,27 @@
                                     <button v-if="selected.length" type="button"
                                     class=" capitalize text-green-500 cursor-pointer flex justify-between items-center gap-2 bg-gray-50 p-2 rounded hover:bg-gray-300 hover:text-green-700"
                                     @click="removeAll">
+                                    
                                         <font-awesome-icon :icon="['fas', 'plus']" />
                                         Remove All
                                     </button>
                                 </div>
                             </div>
                             <div class="flex flex-col mt-2">
+                                <!-- <transition-group enter="animate-coming" leave="animate-out"
+                                    enter-active-class="transition-all duration-100"
+                                    leave-active-class="transition-all duration-400" tag="div">
+                                    <div v-for="(item, index) in selected" :key="index"
+                                        class="w-full p-2 bg-orange-300 border-b-2 border-gray-300">
+
+                                        <div class="w-full flex justify-center items-center cursor-pointer" :class="{
+                                            'animate-coming bg-red-500': isSelected(item),
+                                            'animate-out bg-cyan-300': !isSelected(item)
+                                        }" @click="removeItem(item)">
+                                            {{ item.name }} + {{ isSelected(item) }}
+                                        </div>
+                                    </div>
+                                </transition-group> -->
                                 <TransitionGroup name="item-selected" tag="div"
                                     enter-from-class="translate-x-[-7%] -z-[999] opacity-0"
                                     enter-active-class="duration-700" leave-active-class="duration-700"
@@ -93,98 +158,43 @@
 </template>
 <script lang="ts" setup>
 import Modal from "@/components/BoostrapModal/Modal.vue";
-const { showModal,value,source,returnObject } = defineProps({
+const { showModal } = defineProps({
     showModal: {
         type: Boolean,
         default: false,
         required: true
-    },
-    value:{
-        type: Array,
-        required:false,
-    },
-    source:{
-        type: String,
-        required:true,
-    },
-    returnObject: {
-      type: Boolean,
-      default: false
-    },
+    }
 })
-const items_queues = [
+const items = [
     {
-        name: 'Reyes Tránsito queues',
-        description: "descripction 1"
+        name: 'Reyes Tránsito',
     },
     {
-        name: 'Brook Allison Bennington queues',
-        description: "descripction 2"
+        name: 'Brook Allison Bennington',
     },
     {
-        name: 'Kendall Reyes queues',
-        description: "descripction 3"
+        name: 'Kendall Reyes',
     },
     {
-        name: 'Silver Evelyn queues',
-        description: "descripction 4"
+        name: 'Silver Evelyn',
     },
     {
-        name: 'Carol Cyan queues',
-        description: "descripction 5"
+        name: 'Carol Cyan',
     },
     {
-        name: 'Kelley Christie queues',
-        description: "descripction 6"
+        name: 'Kelley Christie',
     },
     {
-        name: 'Jordin Lavern queues',
-        description: "descripction 7"
+        name: 'Jordin Lavern',
     },
     {
-        name: 'Pedrin Bennington queues',
-        description: "descripction 8"
+        name: 'Pedrin Bennington',
     },
 ]
-const items_agents = [
-    {
-        name: 'Reyes Tránsito agents',
-    },
-    {
-        name: 'Brook Allison Bennington agents',
-    },
-    {
-        name: 'Kendall Reyes agents',
-    },
-    {
-        name: 'Silver Evelyn agents',
-    },
-    {
-        name: 'Carol Cyan agents',
-    },
-    {
-        name: 'Kelley Christie agents',
-    },
-    {
-        name: 'Jordin Lavern agents',
-    },
-    {
-        name: 'Pedrin Bennington agents',
-    },
-]
-const allItems = ref(source === 'queues' ? [...items_queues] : [...items_agents])
+const allItems = ref([...items])
 const selected: any = ref([]);
 const filter = ref('');
-const emit = defineEmits(['close','update:modelValue'])
-onMounted(() => {
-   console.log(value)
-})
-watch(() => selected.value, (newVal) => {
-  // Emite el evento 'input' cuando localValue cambia
-  console.log(newVal)
-  emit('update:modelValue', newVal);
-});
-
+const emit = defineEmits(['close'])
 const close = () => {
     emit('close')
 }
@@ -194,15 +204,18 @@ const handleSearch = (search: any) => {
 }
 const filteredItems = computed(() => {
     let items = elements();
+    console.log(items)
+    //return props.items.filter((item: any) => item.maidenName === 'Cole')
     if (searchFilter.value !== '') {
         return items.filter((item: any) => item.name.toLocaleLowerCase().includes(searchFilter.value.toLocaleLowerCase()));
+        // return items.filter((item: any) => item.name.toLocaleLowerCase().includes(searchFilter.value) || item.name.includes(searchFilter.value));
     }
     return items;
 })
 const addItem = (item: any) => {
     // console.log(allItems.value)
     // selected.value.push(...allItems.value.filter((i: any) => i.name === item.name));
-    selected.value = [...selected.value, ...allItems.value.filter((i: any) => i.name === item.name)];
+    selected.value = [...selected.value, ...allItems.value.filter((i: any) => i.name === item.name)]; //si se utiliza un wach 
     // allItems.value = allItems.value.filter((i:any) => i.name !== item.name);
     // console.log(selected.value)
     // console.log('add')
@@ -211,7 +224,21 @@ const removeItem = (item: any) => {
     selected.value = selected.value.filter((i: any) => i.name !== item.name);
     console.log('remove');
 }
+// const elements  = () =>{
+//     console.log(items)
+//     // return items.filter((item) => {
+//     //     return item.name.toLowerCase().indexOf(selected.value.toLowerCase()) > -1
+//     // })
+//     return allItems
+// }
+function isSelected(item: any) {
+    console.log(item.name)
+    console.log(selected.value.some((selectedItem: any) => selectedItem.name === item.name))
+    // return selected.value.includes(item.name);
+    return selected.value.some((selectedItem: any) => selectedItem.name === item.name)
+}
 function elements() {
+
     let items = allItems.value.filter((item) => {
         const hasAdded = selected.value.some((selectedItem: any) => selectedItem.name === item.name)
         if (!hasAdded) {
@@ -219,6 +246,8 @@ function elements() {
 
         }
     })
+
+
     return items
 }
 const selectAll = () => {
@@ -226,5 +255,14 @@ const selectAll = () => {
 }
 const removeAll = () => {
     selected.value = []
+}
+function beforeLeave(el: any) {
+    const { marginLeft, marginTop, width, height } = window.getComputedStyle(
+        el
+    );
+    // el.style.left = `${el.offsetLeft - parseFloat(marginLeft, 10)}px`;
+    // el.style.top = `${el.offsetTop - parseFloat(marginTop, 10)}px`;
+    el.style.width = width;
+    el.style.height = height;
 }
 </script>

@@ -17,7 +17,7 @@
                                         Select All 
                                     </button>
                                     <SearchInput @search="handleSearch" />
-                                </div>b
+                                </div>
                             </div>
                         </div>
                         <div class="flex flex-col mt-2">
@@ -172,19 +172,14 @@ const items_agents = [
         name: 'Pedrin Bennington agents',
     },
 ]
-const allItems = ref(source === 'queues' ? [...items_queues] : [...items_agents])
-const selected: any = ref([]);
-const filter = ref('');
-const emit = defineEmits(['close','update:modelValue'])
-onMounted(() => {
-   console.log(value)
-})
-watch(() => selected.value, (newVal) => {
+const allItems = ref([])
+const localValue: any = ref([]);
+const emit = defineEmits(['close', 'update:modelValue']);
+watch(() => localValue.value, (newVal) => {
   // Emite el evento 'input' cuando localValue cambia
   console.log(newVal)
   emit('update:modelValue', newVal);
 });
-
 const close = () => {
     emit('close')
 }
@@ -193,38 +188,53 @@ const handleSearch = (search: any) => {
     searchFilter.value = search
 }
 const filteredItems = computed(() => {
-    let items = elements();
-    if (searchFilter.value !== '') {
-        return items.filter((item: any) => item.name.toLocaleLowerCase().includes(searchFilter.value.toLocaleLowerCase()));
+    if (source === 'queues') {
+        let queues = items_queues;
+        return queues.filter((item)=>{
+            if(returnObject){
+                if(!localValue.some((val:any) => val.name === item.name)){
+                    // return item.name.toLocaleLowerCase().includes(searchFilter.value.toLocaleLowerCase());
+                    return item.name.toLowerCase().indexOf(searchFilter.value.toLowerCase()) >= 0 || item.description.toLowerCase().indexOf(searchFilter.value.toLowerCase()) >= 0
+                 // return item.name.toLowerCase().indexOf(self.search.toLowerCase()) >= 0 || item.description.toLowerCase().indexOf(self.search.toLowerCase()) >= 0
+                }
+            }
+            else{
+                if(!localValue.includes(item.name)){
+                    return item.name.toLowerCase().indexOf(searchFilter.value.toLowerCase()) >= 0 || item.description.toLowerCase().indexOf(searchFilter.value.toLowerCase()) >= 0
+                }
+            }
+        })
+    } else if(source === 'all-agents'){
+        
     }
-    return items;
+
+    // // if (searchFilter.value !== '') {
+    // //     return items.filter((item: any) => item.name.toLocaleLowerCase().includes(searchFilter.value.toLocaleLowerCase()));
+    // // }
+    // return items;
 })
 const addItem = (item: any) => {
-    // console.log(allItems.value)
-    // selected.value.push(...allItems.value.filter((i: any) => i.name === item.name));
-    selected.value = [...selected.value, ...allItems.value.filter((i: any) => i.name === item.name)];
-    // allItems.value = allItems.value.filter((i:any) => i.name !== item.name);
-    // console.log(selected.value)
-    // console.log('add')
+    localValue.value = [...localValue.value, ...allItems.value.filter((i: any) => i.name === item.name)];
 }
 const removeItem = (item: any) => {
-    selected.value = selected.value.filter((i: any) => i.name !== item.name);
-    console.log('remove');
+    localValue.value = localValue.value.filter((i: any) => i.name !== item.name);
 }
 function elements() {
-    let items = allItems.value.filter((item) => {
-        const hasAdded = selected.value.some((selectedItem: any) => selectedItem.name === item.name)
-        if (!hasAdded) {
-            return item.name.toLocaleLowerCase()
 
-        }
-    })
-    return items
+    // let items = allItems.value.filter((item) => {
+    //     const hasAdded = selected.value.some((selectedItem: any) => selectedItem.name === item.name)
+    //     if (!hasAdded) {
+    //         return item.name.toLocaleLowerCase()
+    //     }
+    // })
+
+
+    // return items
 }
 const selectAll = () => {
-    selected.value = [...allItems.value]
+    localValue.value = [...allItems.value]
 }
 const removeAll = () => {
-    selected.value = []
+    localValue.value = []
 }
 </script>

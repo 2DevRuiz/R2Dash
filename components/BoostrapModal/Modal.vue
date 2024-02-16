@@ -11,16 +11,21 @@
                 <!-- modal -->
                 <div class="relative max-w-3xl w-auto mx-auto top-1/2 transform -translate-y-1/2 rounded-md" v-show="open">
                     <div
-                        class="relative flex flex-col w-full pointer-events-auto bg-white dark:bg-gray-800 border border-gray-300 rounded-lg">
+                        class="relative flex flex-col w-full pointer-events-auto bg-white dark:bg-gray-800  rounded-lg">
                         <!-- Header Section -->
-                        <div class="text-lg font-semibold leading-normal flex items-start justify-between p-3 border-b border-gray-300 rounded-t">
+                        <div class="bg-blue-500 text-lg font-semibold leading-normal flex items-start justify-between p-3 border-b-2 border-gray-300 rounded-t">
 
-                            <slot name="modal-title" :close="close">
+                            <!-- <slot name="modal-title" :close="close">
                                 <h5 class="mb-0 ">Modal title</h5>
-                            </slot>
+                            </slot> -->
+                            <div class="mb-0 text-white">
+                                <slot name="modal-title" :close="close">
+                                    <h5 >Modal title</h5>
+                                </slot>
+                            </div>
                             <slot name="closeBtn" :close="close">
                                 <button type="button"
-                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                    class="text-gray-200 bg-transparent hover:bg-red-500 hover:text-gray-200 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                                     @click="close">
                                     <font-awesome-icon :icon="['fas', 'xmark']" class="w-5 h-5" />
                                 </button>
@@ -28,7 +33,7 @@
                         </div>
                         <!-- Header Section -->
                         <!-- Body Section -->
-                        <div class="relative top-0 mb-1  rounded-xl">
+                        <div class="relative top-0  rounded-xl">
 
                             <slot name="modal-body">
                                 .....
@@ -38,7 +43,7 @@
                         <!-- Footer Section -->
                         <div
                             class="relative top-0 p-3 rounded-b-xl flex justify-end gap-2 items-end border-t border-gray-300">
-                            <slot name="footer">
+                            <slot name="modal-footer" :close="close">
                                 <button type="button" @click="close"
                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 rounded-lg">Close</button>
                             </slot>
