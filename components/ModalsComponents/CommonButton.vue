@@ -38,9 +38,12 @@
             Purple to blue
         </span>
     </button> -->
-    <button class="btn-primary">
+    <div>
+        <button class="btn-primary">
         Save changes
-    </button>
+    </button> 
+    </div>
+   
     <!-- <button
         class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
         <span
@@ -48,9 +51,9 @@
             Cyan to blue
         </span>
     </button> -->
-    <button class="btn-outline">
+    <!-- <button class="btn-outline">
         Save changes outLine
-    </button>
+    </button> -->
 </template>
 <script lang="ts" setup>
 interface commonButton {

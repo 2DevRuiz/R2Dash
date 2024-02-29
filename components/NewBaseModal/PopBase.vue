@@ -1,9 +1,3 @@
-<script setup lang="ts">
-defineProps<{
-    show: boolean
-}>()
-</script>
-
 <template>
     <!-- Render inside our `<div id="modals"></div>` in index.html -->
     <!-- <Teleport to="#modals"> -->
@@ -15,7 +9,7 @@ defineProps<{
          leave-to-class="opacity-0">
             
             <!-- Show / hide the modal -->
-            <div v-if="show" class="fixed left-0 top-0 z-[500] w-screen h-screen bg-black bg-opacity-30 grid items-center ">
+            <div v-if="isVisible" class="fixed left-0 top-0 z-[500] w-screen h-screen bg-black bg-opacity-30 grid items-center ">
                 <!-- The backdrop -->
                 <!-- <div class="fixed inset-0 bg-gray-900 opacity-40"></div> -->
 
@@ -30,3 +24,14 @@ defineProps<{
         </transition>
     </Teleport>
 </template>
+
+<script setup lang="ts">
+const  isVisible = ref(false)
+
+const open = () =>{
+    isVisible.value = true
+}
+const close = () =>{
+    isVisible.value = false
+}
+</script>

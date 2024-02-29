@@ -17,7 +17,7 @@
           </template>
 
           <template #cell(action)="{ value, item }">
-            <CommonButtons :button-text="''" :icon="'pencil'"></CommonButtons>
+            <CommonButtons :button-text="''" :icon="'pencil'" @click="handleEdit(item)"></CommonButtons>
           </template>
         </DataTables2>
 
@@ -35,4 +35,7 @@ const fields = ref([
   { key: 'description', label: 'Description', ordered: true },
   { key: 'action', label: 'Action', ordered: false }
 ])
+function handleEdit(item: any) {
+  console.log(item.title)
+}
 </script>

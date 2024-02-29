@@ -1,9 +1,9 @@
 <template>
     <div class="w-full h-screen bg-light-cyan flex items-center justify-center">
         <div class="flex justify-center items-center w-full my-0 gap-2">
-            <!-- <CommonButton button-text="Open Alert" :primary="true" @click="openAlertConfirm(true)" /> -->
+            <CommonButton button-text="Open Alert" :primary="true" @click="openAlertConfirm()" />
             <!-- <CommonButton button-text="Open Confirm" :primary="true" @click="openAlertConfirm(false)" /> -->
-            <ButtonsCommon :button-text="'primary'" :loading="false" :disabled="false" :type-b="'primary'" :icon="'user'">
+            <!-- <ButtonsCommon :button-text="'primary'" :loading="false" :disabled="false" :type-b="'primary'" :icon="'user'">
             </ButtonsCommon>
             <ButtonsCommon :button-text="'secondary'" :loading="false" :disabled="false" :type-b="'secondary'" :icon="''">
             </ButtonsCommon>
@@ -14,7 +14,7 @@
             <ButtonsCommon :button-text="'danger'" :loading="false" :disabled="false" :type-b="'danger'">
             </ButtonsCommon>
             <ButtonsCommon :button-text="'warning'" :loading="false" :disabled="false" :type-b="'warning'">
-            </ButtonsCommon>
+            </ButtonsCommon> -->
             <!-- <button
                 class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-full group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
 
@@ -50,9 +50,9 @@
 </template>
 <script lang="ts" setup>
 import ConfirmDialogs from '~/components/ModalsComponents/ConfirmDialogs.vue';
-definePageMeta({
-    layout: 'auth',
-})
+// definePageMeta({
+//     layout: 'auth',
+// })
 const alertConfirm = ref<InstanceType<typeof ConfirmDialogs> | null>(null);
 
 async function openAlertConfirm(alertModal = false) {
