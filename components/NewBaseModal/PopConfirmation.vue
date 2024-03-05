@@ -1,109 +1,79 @@
-<!-- <template>
-    <PopBase ref="npbase">
-        <h2 style="margin-top: 0">{{ title }}</h2>
-        <p>{{ message }}</p>
-        <div class="flex justify-center items-center gap-2">
-            <button class="bg-red-400 p-2 rounded-lg" @click="_cancel">{{ cancelButton }}</button>
-            <span class="bg-green-400 p-2 rounded-lg" @click="_confirm">{{ okButton }}</span>
+<template>
+    <PopBase ref="popBase">
+        <div class="w-full max-w-lg p-3 relative mx-auto my-auto rounded-xl shadow-lg bg-white">
+            <div>
+                <div class="text-center p-3 flex-auto justify-center leading-6">
+                    <!-- <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-16 h-16 flex items-center text-purple-500 mx-auto"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                  clip-rule="evenodd"
+                />
+              </svg> -->
+                    <!-- icon  -->
+                    <font-awesome-icon :icon="icon" class="text-6xl flex items-center text-purple-500 mx-auto" />
+                    <!-- icon -->
+                    <h2 class="text-2xl font-bold py-4">{{ title }}</h2>
+                    <p class="text-md text-gray-500 px-8 whitespace-pre-line">
+                        <span v-html="message"></span>
+                         <!-- {{ message }} -->
+                    </p>
+                </div>
+                <div class="p-3 mt-2 text-center space-x-4 md:block">
+                    <button @click="_confirm"
+                        class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-md hover:shadow-lg hover:bg-gray-100">
+                        {{ okButtonText }}
+                    </button>
+                    <button @click="_cancel"
+                        class="mb-2 md:mb-0 bg-purple-500 border border-purple-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-md hover:shadow-lg hover:bg-purple-600">
+                        {{ cancelButtonText }}
+                    </button>
+                </div>
+            </div>
         </div>
     </PopBase>
 </template>
-<script  setup>
-const npbase = ref(null)
-// Parameters that change depending on the type of dialogue
-const title = ref(undefined);
-const message = ref(undefined); // Main text content
-const okButton = ref(undefined); // Text for confirm button; leave it empty because we don't know what we're using it for
-const cancelButton = ref('Go Back'); // text for cancel button
 
-// Private variables
-const resolvePromise = ref(undefined);
-const rejectPromise = ref(undefined);
-// function show 
-function show(opts = {}) {
-    // title.value = opts.title || '';
-    // message.value = opts.message || '';
-    // okButton.value = opts.okButton || 'OK';
-    // cancelButton.value = opts.cancelButton || '';
-    // npbase.value.open();
-    // return new Promise((resolve, reject) => {
-    //     resolvePromise.value = resolve;
-    //     rejectPromise.value = reject;
-    // });
-    console.log("mis nuevos tenis")
-};
+<script setup>
+
+const popBase = ref(null)
+
+const title = ref('title');
+const message = ref('message');
+const okButtonText = ref('Ok');
+const icon = ref('');
+const cancelButtonText = ref('Cancel');
+
+let resolvePromise = undefined;
+const show = (opt = {}) => {
+    title.value = opt.title;
+    message.value = opt.message;
+    okButtonText.value = opt.okButton;
+    if (opt.cancelButton) {
+        cancelButtonText.value = opt.cancelButton;
+    }
+    if (opt.icon) {
+        icon.value = opt.icon
+    }
+    popBase.value.open()
+
+    return new Promise((resolve) => {
+        resolvePromise = resolve
+        // rejectPromise = reject
+    })
+}
 const _confirm = () => {
-    npbase.value.close();
-    resolvePromise.value(true);
+    resolvePromise(true)
+    popBase.value.close()
 }
 const _cancel = () => {
-    npbase.value.close();
-    resolvePromise.value(false);
+    resolvePromise(false)
+    popBase.value.close()
 }
-</script> -->
-<template>
-    <PopupModal ref="popup">
-      <h2 style="margin-top: 0">{{ title }}</h2>
-      <p>{{ message }}</p>
-      <div class="btns">
-        <button class="cancel-btn" @click="cancel">{{ cancelButton }}</button>
-        <span class="ok-btn" @click="confirm">{{ okButton }}</span>
-      </div>
-    </PopupModal>
-  </template>
-  
-  <script setup>
-  import PopupModal from '@/components/PopupModal.vue'
-  import { ref, provide, inject } from 'vue'
-  
-  // Parameters that change depending on the type of dialogue
-  const title = ref(undefined)
-  const message = ref(undefined) // Main text content
-  const okButton = ref(undefined) // Text for confirm button; leave it empty because we don't know what we're using it for
-  const cancelButton = ref('Go Back') // text for cancel button
-  
-  // Private variables
-  const resolvePromise = inject('resolvePromise')
-  const rejectPromise = inject('rejectPromise')
-  
-  const confirm = () => {
-    // Once we set our config, we tell the popup modal to close
-    popup.value.close()
-    resolvePromise(true)
-  }
-  
-  const cancel = () => {
-    popup.value.close()
-    rejectPromise(false)
-  }
-  
-  provide('resolvePromise', resolvePromise)
-  provide('rejectPromise', rejectPromise)
-  </script>
-  
-  <style scoped>
-  .btns {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  
-  .ok-btn {
-    color: red;
-    text-decoration: underline;
-    line-height: 2.5rem;
-    cursor: pointer;
-  }
-  
-  .cancel-btn {
-    padding: 0.5em 1em;
-    background-color: #d5eae7;
-    color: #35907f;
-    border: 2px solid #0ec5a4;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 16px;
-    text-transform: uppercase;
-    cursor: pointer;
-  }
-  </style>
+defineExpose({ show })
+</script>

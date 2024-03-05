@@ -34,4 +34,5 @@ const open = () =>{
 const close = () =>{
     isVisible.value = false
 }
+defineExpose({ open, close })
 </script>
