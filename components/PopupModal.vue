@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <div class="popup-modal" v-if="isVisible">
+        <div class="popup-modal" v-if="isVisible" @click.stop.self="hl">
             <div class="window">
                 <slot></slot>
             </div>
@@ -23,6 +23,9 @@ export default {
         close() {
             this.isVisible = false
         },
+        hl() {
+            console.log('hl')
+        }
     },
 }
 </script>
@@ -32,6 +35,7 @@ export default {
 .fade-leave-active {
     transition: opacity 0.3s;
 }
+
 .fade-enter,
 .fade-leave-to {
     opacity: 0;

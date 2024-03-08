@@ -4,11 +4,12 @@
             World</button>
     </div>
 
-
-
-    <PopConfirmation ref="customDialog"></PopConfirmation>
+    <ConfirmDialogue ref="customDialog"></ConfirmDialogue>
+    <!-- <PopConfirmation ref="customDialog"></PopConfirmation> -->
 </template>
 <script lang="ts" setup>
+import ConfirmDialogue from '~/components/ConfirmDialogue.vue';
+
 const customDialog: any = ref(null);
 // const Open = () => {
 //     customDialog.value?.show();
