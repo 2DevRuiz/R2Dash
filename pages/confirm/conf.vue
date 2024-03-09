@@ -25,9 +25,11 @@ onMounted(() => {
 <template>
     <div>
         <h1>Delete Page</h1>
-        <button class="delete-btn" @click="doDelete">Delete Page</button>
+        <!-- <button class="delete-btn" @click="doDelete">Delete Page</button> -->
+        <button class="delete-btn" @click="openAlertConfirm(true)">Delete Page</button>
         <!-- <button class="delete-btn" @click="doUpdate">Update Page</button> -->
         <PopConfirmation ref="confirmDialogue"></PopConfirmation>
+        <AlertConfirmModal ref="alertConfirm" />
     </div>
 </template>
 
@@ -66,13 +68,13 @@ export default {
     },
 }
 </script> -->
-<script setup>
-import { ref } from 'vue';
+<!-- <script lang="ts" setup>
 import PopConfirmation from '@/components/NewBaseModal/PopConfirmation.vue';
-const confirmDialogue = ref(null);
 
+const confirmDialogue = ref(null);
+const alertConfirm = ref<InstanceType<typeof PopConfirmation> | null>(null);
 const doDelete = async () => {
-    console.log(confirmDialogue.value.show())
+    // console.log(confirmDialogue.value.show())
     // const ok = await confirmDialogue.value.show({
     //     title: 'Delete Page',
     //     message: 'Are you sure you want to delete this page? It cannot be undone.',
@@ -84,10 +86,48 @@ const doDelete = async () => {
     // } else {
     //     alert('You chose not to delete this page. Doing nothing now.');
     // }
-    console.log("click Event Button")
+    // const ok = await confirmDialogue.value.show({
+    //     title: 'Delete Page',
+    //     message: 'Are you sure you want to delete this page? It cannot be undone.',
+    //     okButton: 'Delete Forever',
+    // });
+    const userInput = await alertConfirm.value?.show(
+        {
+            title: 'Delete Page',
+            message: 'Are you sure you want to delete this page? It cannot be undone.',
+            okButton: 'Delete Forever',
+        }
+    );
+    console.log('User clicked:', userInput);
 };
-</script>
+</script> -->
+<script lang="ts" setup>
+import AlertConfirmModal from "@/components/NewBaseModal/AlertConfirmModal.vue";
 
+import { ref } from "vue";
+
+const alertConfirm = ref<InstanceType<typeof AlertConfirmModal> | null>(null);
+const loading = ref(false);
+const disabled = ref(false);
+async function openAlertConfirm(alertModal = false) {
+    //   loading.value = true;
+    //   disabled.value = true;
+    console.log(alertConfirm)
+    const alertMessage =
+        "Hi!, You created a custom async alert modal. This was amazing.";
+
+    const confirmMessage = "It was quite interesting and elegant right?";
+
+    const userInput = await alertConfirm.value?.openModal(
+        alertModal ? alertMessage : confirmMessage,
+        alertModal
+    );
+
+    console.log("This was the user input", userInput);
+    loading.value = false;
+    disabled.value = false;
+}
+</script>
 <style scoped>
 .delete-btn {
     padding: 0.5em 1em;

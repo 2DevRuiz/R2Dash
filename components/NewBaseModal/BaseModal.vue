@@ -2,20 +2,25 @@
 defineProps<{
     show: boolean
 }>()
+
+
+const handleClick = () => {
+    console.log('click base')
+}
 </script>
 
 <template>
     <!-- Render inside our `<div id="modals"></div>` in index.html -->
     <!-- <Teleport to="#modals"> -->
     <Teleport to="body">
-        <Transition name="fade"
-         enter-active-class="transition-opacity duration-250 ease-out"
-         leave-active-class="transition-opacity duration-250 ease-out" 
-         enter-from-class="opacity-0"
-         leave-to-class="opacity-0">
-            
+        <Transition name="fade" enter-active-class="transition-opacity duration-250 ease-out"
+            leave-active-class="transition-opacity duration-250 ease-out" enter-from-class="opacity-0"
+            leave-to-class="opacity-0">
+
             <!-- Show / hide the modal -->
-            <div v-if="show" class="fixed left-0 top-0 z-[500] w-screen h-screen bg-black bg-opacity-30 grid items-center ">
+            <div v-if="show"
+                class="fixed left-0 top-0 z-[500] w-screen h-screen bg-black bg-opacity-30 grid items-center "
+                @click.stop.self="handleClick">
                 <!-- The backdrop -->
                 <!-- <div class="fixed inset-0 bg-gray-900 opacity-40"></div> -->
 
