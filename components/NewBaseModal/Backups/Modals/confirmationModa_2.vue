@@ -30,7 +30,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import BaseModal from '@/components/TailwindComponents/Modals/BaseModal.vue';
+// import BaseModal from '@/components/TailwindComponents/Modals/BaseModal.vue';
 
 const PopBase = ref(null)
 //start:functional Variable 

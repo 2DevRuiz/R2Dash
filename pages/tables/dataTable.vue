@@ -16,6 +16,9 @@
 
                 </template>
             </DataTables2>
+            <div class="w-full mx-auto flex-1 relative flex items-center justify-center inset-0 bg-slate-300">
+               <Pagination/>
+            </div>
             <template #footer>
                 <div class="">
 

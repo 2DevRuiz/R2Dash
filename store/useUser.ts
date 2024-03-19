@@ -2,7 +2,8 @@ import IUser from "~/interface/IUser"
 
 class UserService{
     private countries:Ref<Array<IUser> >
-    private baseURL = "https://dummyjson.com/users"
+    // private baseURL = "https://dummyjson.com/users"
+    private baseURL = "https://dummyapi.io/data/v1/user?page=1&limit=10"
     constructor() {
         this.countries = ref<Array<IUser> >([])
     }

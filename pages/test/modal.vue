@@ -74,11 +74,12 @@ const form: any = {
 function openModal() {
     // show.value = true;
     showModal.value = true
-    console.log( form.queues.length)
+    console.log(form.queues.length)
 }
 function toogleModalMultiple(modal_Source: any, OpenMultiModal: any) {
     console.log(modal_Source, OpenMultiModal)
     modalSource.value = modal_Source;
+    console.log("lof", modalSource.value, "openValue", OpenMultiModal)
     openMultiModal.value = OpenMultiModal;
 }
 
