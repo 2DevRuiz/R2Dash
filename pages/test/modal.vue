@@ -27,7 +27,76 @@
                         12
                     </a>
                 </div>
-                <div class="mt-5 bg-orange-300 w-full cursor-pointer" @click="toogleModalMultiple('queues', true)">
+                <!-- <div class=""> -->
+                <!-- <div class="group my-3 relative  border-b-2" @click="toogleModalMultiple('queues', true)">
+                    
+                    <span>{{form.queues.length }} queues selected</span>
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-2 bg-blue-400 transition-all group-hover:w-full"></span>
+                </div>
+                </div> -->
+                <!-- amazon div -->
+                <div class="group my-3 p-1.5  relative border-b-2 border-gray-400 flex justify-between bg-gray-100">
+                    <input type="checkbox">
+
+                    <span class="bg-green-700" @click="toogleModalMultiple('queues', true)">{{ form.queues.length }}
+                        queues selected</span>
+
+
+                    <!-- <i class="fa fa-chevron-right"></i> -->
+                    <font-awesome-icon :icon="['fas', 'bars-staggered']"
+                        class="text-base fill-current text-gray-500 dark:text-gray-200" />
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-1 bg-blue-400 transition-all group-hover:w-full"></span>
+                </div>
+                <!-- amazon div -->
+                <!-- separator -->
+                <div class="my-3 border-y-2 flex justify-center border-gray-100">
+                    Separator
+                </div>
+                <!-- chat GPT  -->
+                <div class="group my-3 relative border-b-2 flex items-center justify-center ">
+                    <!-- checkbox Container -->
+                    <!-- <div class="flex items-center text-center justify-center border-x border-gray-400"> -->
+                    <div class="self-stretch px-1 border-x border-gray-200 flex mb-0.5">
+                        <!-- <label for="" class="relative flex items-center cursor-pointer appearance-none pl-2"> -->
+                        <!-- <label for="" class="relative m-0 self-center">
+                            <input type="checkbox"
+                                class="relative h-5 w-5 outline-none cursor-pointer bg-green-200 border-none m-0 p-0 rounded box-shadow-sm transition-box-shadow duration-300 checked:bg-green-500 ">
+                        </label> -->
+                        <label class="relative flex cursor-pointer items-center rounded-full p-2" for="checkbox-1"
+                            data-ripple-dark="true">
+                            <input type="checkbox"
+                                class="peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all  checked:border-green-500 checked:bg-green-500 "
+                                id="checkbox-1" checked />
+                            <div
+                                class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20"
+                                    fill="currentColor" stroke="currentColor" stroke-width="1">
+                                    <path fill-rule="evenodd"
+                                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- <span class="bg-green-700">{{ form.queues.length }} queues selected</span> -->
+                    <span class="flex-grow  text-center cursor-pointer" @click="toogleModalMultiple('queues', true)">{{
+                            form.queues.length }} queues selected</span> <!-- Este span ocupa el espacio restante -->
+                    <!-- icon container-->
+                    <div class="border-x border-gray-200 justify-self-center self-stretch items-center px-2.5 content-center flex mb-0.5">
+                        <span class="pl-2 mr-1 cursor-pointer" @click="toogleModalMultiple('queues', true)">
+                            <font-awesome-icon :icon="['fas', 'bars-staggered']"
+                                class="text-base fill-current text-gray-500 dark:text-gray-200" />
+                            <!-- Reemplaza "icono" con el nombre de la clase de tu icono -->
+                        </span>
+                    </div>
+
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-1 bg-blue-400 transition-all group-hover:w-full"></span>
+                </div>
+                <!-- <div class="mt-5 bg-orange-300 w-full cursor-pointer" @click="toogleModalMultiple('queues', true)">
                     <span>
                         {{ form.queues.length }} queues selected
                     </span>
@@ -48,13 +117,17 @@
                     <span class="mx-3 bg-indigo-300 w-full" v-for="(item, index) in form.agents" :key="index">
                         {{ item.name }}
                     </span>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
-    <MultipleModal :source="modalSource" :showModal="openMultiModal" @close="v => openMultiModal = v"
-        v-model="form[modalSource]" :key="modalSource">
-    </MultipleModal>
+    <keep-alive>
+        <MultipleModal :source="modalSource" :showModal="openMultiModal" @close="v => openMultiModal = v"
+            v-model="form[modalSource]" :key="modalSource">
+        </MultipleModal>
+    </keep-alive>
+
+
 
 
     <ModalDialog :show="showModal" @close="showModal = false"></ModalDialog>
@@ -65,7 +138,7 @@ const message = "New Modal";
 const show = ref(false);
 const showModal = ref(false);
 const openMultiModal = ref(false);
-const modalSource = ref('queues');
+const modalSource: any = ref('queues');
 const form: any = {
     queues: [],
     agents: []
@@ -79,8 +152,12 @@ function openModal() {
 function toogleModalMultiple(modal_Source: any, OpenMultiModal: any) {
     console.log(modal_Source, OpenMultiModal)
     modalSource.value = modal_Source;
-    console.log("lof", modalSource.value, "openValue", OpenMultiModal)
+    console.log("modalSource", modalSource.value, "openValue", OpenMultiModal)
     openMultiModal.value = OpenMultiModal;
+    console.log(openMultiModal.value)
 }
-
+function ShowTR(state: any) {
+    console.log("state", state, "form", form[modalSource.value], "modalSource", modalSource.value)
+    openMultiModal.value = state
+}
 </script>

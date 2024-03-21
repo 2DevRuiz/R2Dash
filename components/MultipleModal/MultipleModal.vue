@@ -1,5 +1,5 @@
 <template>
-    <Modal :open="props.showModal" @close="closeM" ref="PopBase">
+    <Modal :open="showModal" @close="closeM" ref="PopBase">
         <template v-slot:modal-title="{ close }">
             <h5>Seleccione los agentes</h5>
         </template>
@@ -107,9 +107,10 @@ const props = defineProps({
         default: false,
         required: true
     },
-    value: {
+    modelValue: {
         type: Array,
         required: false,
+        default: []
     },
     source: {
         type: String,
@@ -120,7 +121,7 @@ const props = defineProps({
         default: false
     },
 });
-const selected: any = ref([]);
+const selected: any = ref([...props.modelValue]);
 const emit = defineEmits(['close', 'update:modelValue'])
 const searchFilter = ref('');
 const items_queues = [
@@ -190,14 +191,16 @@ const allItems = ref(props.source === 'queues' ? [...items_queues] : [...items_a
 /**
  * start:Watcher For Modal
  */
-watch(() => props.showModal, (newValue, oldValue) => {
-    console.log('newValue', newValue, 'oldValue', oldValue)
-    if (newValue) {
-        PopBase.value?.open()
-    } else {
-        PopBase.value?.close()
-    }
-});
+// watch(() => props.showModal, (newValue, oldValue) => {
+//     // console.log('newValue', newValue, 'oldValue', oldValue)
+//     if (newValue) {
+//         console.log("its open")
+//         PopBase.value?.open()
+//     } else {
+//         console.log("its close")
+//         PopBase.value?.close()
+//     }
+// });
 /**
  * End:Watcher For Modal
  */
@@ -207,11 +210,23 @@ watch(() => selected.value, (newVal) => {
     emit('update:modelValue', newVal);
 });
 // end:watcher for Selected value change
-
+/**
+ * start:watcher for Selected value change
+ */
+// watch(() => props.modelValue, (newVal) => {
+//     selected.value = newVal;
+//     console.log("newVal Selected", newVal)
+//     console.log("SelectedValue", selected.value)
+//     // emit('update:modelValue', newVal);
+// });
+/**
+ * end:watcher for Selected value change
+ */
 // start: function declaration
 const closeM = (state: any) => {
-    console.log("close",state)
-    emit('close',state)
+    console.log("close", state)
+    // PopBase.value?.close()
+    emit('close', state)
 }
 const handleSearch = (search: any) => {
     searchFilter.value = search

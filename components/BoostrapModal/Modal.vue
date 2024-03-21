@@ -3,14 +3,14 @@
         leave-active-class="transition-opacity duration-500" enter-from-class="opacity-0" leave-to-class="opacity-0">
         <!-- backdrop -->
         <div class="block fixed top-0 left-0 w-full h-full overflow-x-hidden overflow-y-auto bg-black bg-opacity-40 z-[1000] items-center rounded-md"
-            v-show="isVisible" @click.stop.self="$emit('close', false)">
+            v-show="open" @click.stop.self="$emit('close', false)">
             <!-- backdrop -->
             <transition name="drop-in" enter-active-class="transition-all duration-300 ease-out"
                 leave-active-class="transition-all duration-300 ease-out"
                 enter-from-class="opacity-0 translate-y-[-80%]" leave-to-class="opacity-0 translate-y-[-80%]">
                 <!-- modal -->
                 <div class="relative max-w-3xl w-auto mx-auto top-1/2 transform -translate-y-1/2 rounded-md"
-                    v-show="isVisible">
+                    v-show="open">
                     <div
                         class="relative flex flex-col w-full pointer-events-auto bg-white dark:bg-gray-800  rounded-lg">
                         <!-- Header Section -->
@@ -20,6 +20,7 @@
                             <!-- <slot name="modal-title" :close="close">
                                 <h5 class="mb-0 ">Modal title</h5>
                             </slot> -->
+                            
                             <div class="mb-0 text-white">
                                 <slot name="modal-title" :close="CloseModal">
                                     <h5>Modal title</h5>
@@ -62,41 +63,44 @@
 // create a function to calculate a sum 
 
 
-// const { open } = defineProps({
-//     open: {
-//         type: Boolean,
-//         required: true
-//     }
-// })
-// const emit = defineEmits(['close'])
-// const close = () => {
-//     emit('close')
-// }
-const isVisible = ref(false)
-// const ArrayWidth = {
-//     //    ['xs', 'sm', 'md', 'lg', 'xl', '2xl']
-//     'sm': 'w-1/4',
-//     'md': 'w-3/6',
-//     'lg': 'w-1/2',
-//     'xl': 'w-4/5'
-// }
-// const props = defineProps({
-//     modalWidth: {
-//         type: String,
-//         required: false,
-//         default: 'md'
-//     }
-// })
+const { open } = defineProps({
+    open: {
+        type: Boolean,
+        required: true
+    }
+})
 const emit = defineEmits(['close'])
-const open = () => {
-    isVisible.value = true
-}
 const close = () => {
-    isVisible.value = false
+    emit('close')
 }
+// const isVisible = ref(false)
+// // const ArrayWidth = {
+// //     //    ['xs', 'sm', 'md', 'lg', 'xl', '2xl']
+// //     'sm': 'w-1/4',
+// //     'md': 'w-3/6',
+// //     'lg': 'w-1/2',
+// //     'xl': 'w-4/5'
+// // }
+// // const props = defineProps({
+// //     modalWidth: {
+// //         type: String,
+// //         required: false,
+// //         default: 'md'
+// //     }
+// // })
+// const emit = defineEmits(['close'])
+// const open = () => {
+//     console.log("Open modal component",isVisible.value)
+//     isVisible.value = true
+// }
+// const close = () => {
+//     console.log("close modal component",isVisible.value)
+//     isVisible.value = false
+// }
 const CloseModal = () => {
-    console.log("close modal component")
-    emit('close',false)
+    // console.log("closeM modal component", isVisible.value)
+    // isVisible.value = false
+    emit('close', false)
 }
-defineExpose({ open, close })
+// defineExpose({ open, close })
 </script>

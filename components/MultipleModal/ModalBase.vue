@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 const isVisible = ref(false)
-const ArrayWidth = {
+const ArrayWidth : any = {
     //    ['xs', 'sm', 'md', 'lg', 'xl', '2xl']
     'sm': 'w-1/4',
     'md': 'w-3/6',
