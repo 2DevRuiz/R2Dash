@@ -55,10 +55,10 @@
                     Separator
                 </div>
                 <!-- chat GPT  -->
-                <div class="group my-3 relative border-b-2 flex items-center justify-center ">
+                <div class="group my-3 relative border-b-2 flex items-center justify-center">
                     <!-- checkbox Container -->
                     <!-- <div class="flex items-center text-center justify-center border-x border-gray-400"> -->
-                    <div class="self-stretch px-1 border-x border-gray-200 flex mb-0.5">
+                    <div class="self-center px-1 border-x border-gray-200 flex mb-0.5">
                         <!-- <label for="" class="relative flex items-center cursor-pointer appearance-none pl-2"> -->
                         <!-- <label for="" class="relative m-0 self-center">
                             <input type="checkbox"
@@ -85,14 +85,14 @@
                     <span class="flex-grow  text-center cursor-pointer" @click="toogleModalMultiple('queues', true)">{{
                             form.queues.length }} queues selected</span> <!-- Este span ocupa el espacio restante -->
                     <!-- icon container-->
-                    <div class="border-x border-gray-200 justify-self-center self-stretch items-center px-2.5 content-center flex mb-0.5">
+                    <div
+                        class="border-x border-gray-200 justify-self-center self-stretch items-center px-2.5 content-center flex mb-0.5">
                         <span class="pl-2 mr-1 cursor-pointer" @click="toogleModalMultiple('queues', true)">
                             <font-awesome-icon :icon="['fas', 'bars-staggered']"
                                 class="text-base fill-current text-gray-500 dark:text-gray-200" />
                             <!-- Reemplaza "icono" con el nombre de la clase de tu icono -->
                         </span>
                     </div>
-
                     <span
                         class="absolute -bottom-1 left-0 w-0 h-1 bg-blue-400 transition-all group-hover:w-full"></span>
                 </div>
