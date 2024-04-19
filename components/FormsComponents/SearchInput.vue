@@ -9,15 +9,14 @@
                 </svg> -->
                 <font-awesome-icon :icon="['fas', 'search']" />
             </div>
-
-            <input autocomplete="off" class="peer h-full w-full outline-none text-sm text-gray-700 pr-1" type="text" id="search"
-                placeholder="Search..." @input="search"/>
+            <input autocomplete="off" class="peer h-full w-full outline-none text-sm text-gray-700 pr-1" type="text"
+                id="search" placeholder="Search..." @input="search" />
         </div>
     </div>
 </template>
 <script lang="ts" setup>
 const emit = defineEmits(['search']);
-const search = (e:any) => {
+const search = (e: any) => {
     emit('search', e.target.value);
 }
 </script>

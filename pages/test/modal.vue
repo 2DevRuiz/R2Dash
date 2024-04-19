@@ -39,7 +39,7 @@
                 <div class="group my-3 p-1.5  relative border-b-2 border-gray-400 flex justify-between bg-gray-100">
                     <input type="checkbox">
 
-                    <span class="bg-green-700" @click="toogleModalMultiple('queues', true)">{{ form.queues.length }}
+                    <span class="" @click="toogleModalMultiple('queues', true)">{{ form.queues.length }}
                         queues selected</span>
 
 
@@ -82,12 +82,12 @@
                     </div>
 
                     <!-- <span class="bg-green-700">{{ form.queues.length }} queues selected</span> -->
-                    <span class="flex-grow  text-center cursor-pointer" @click="toogleModalMultiple('queues', true)">{{
-                            form.queues.length }} queues selected</span> <!-- Este span ocupa el espacio restante -->
+                    <span class="flex-grow  text-center cursor-pointer" @click="toogleModalMultiple('agents', true)">{{
+                            form.agents.length }} queues selected</span> <!-- Este span ocupa el espacio restante -->
                     <!-- icon container-->
                     <div
                         class="border-x border-gray-200 justify-self-center self-stretch items-center px-2.5 content-center flex mb-0.5">
-                        <span class="pl-2 mr-1 cursor-pointer" @click="toogleModalMultiple('queues', true)">
+                        <span class="pl-2 mr-1 cursor-pointer" @click="toogleModalMultiple('agents', true)">
                             <font-awesome-icon :icon="['fas', 'bars-staggered']"
                                 class="text-base fill-current text-gray-500 dark:text-gray-200" />
                             <!-- Reemplaza "icono" con el nombre de la clase de tu icono -->
