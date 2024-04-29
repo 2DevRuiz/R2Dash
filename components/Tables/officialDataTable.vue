@@ -12,7 +12,7 @@
                     <thead :class="FnColor">
                         <tr>
                             <th v-for="field in displayedFields"
-                                class="px-4 py-3  border-b-2 border-solid border-x-2 border-gray-200  dark:border-gray-600 text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider group"
+                                class="px-4 py-3  border-b-2 border-solid border-x-2 border-gray-300  dark:border-gray-600 text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider group"
                                 :key="field.key" @click="sortTable(field.key)">
                                 <slot :name="`head(${field.key})`" :field="field">
                                     {{ field.label }}
@@ -40,14 +40,14 @@
                             </td>
                         </tr>
                         <template v-else-if="filteredItems.length > 0">
-                            <template v-for="(item, index) in filteredItems" :key="item.name" class="odd:bg-gray-100">
-                                <tr :class="{ 'hover:bg-gray-200/50 ': props.hover }">
+                            <template v-for="(item, index) in filteredItems" :key="item.name" >
+                                <tr :class="{ 'hover:bg-gray-300/50 ': props.hover ,'odd:bg-white even:bg-gray-100': props.stripe }">
                                     <template v-for="key in displayedFieldKeys">
                                         <Component :is="cellElement(key)"
-                                            class="px-4 py-3 border-b border-x-2 border-gray-200 dark:border-gray-500   text-sm "
+                                            class="px-4 py-3 border-b border-x-2 border-gray-300 dark:border-gray-500   text-sm "
                                             :class="{ 'last:w-1/5 last:text-center': (key === 'action') }">
                                             <slot :name="`cell(${key})`" :value="format(item, (key))" :item="item"
-                                                :index="index" :format="(k) => format(item, k)" :data="getData(item)">
+                                                :index="index" :format="(k) => format(item, k)" :data="item" :row="getRow(item,index)">
                                                 {{ format(item, (key)) }}
                                             </slot>
                                         </Component>
@@ -108,7 +108,7 @@
                 </table>
             </div>
         </div>
-
+        {{ props.stripe }}
 
 
         <!-- end:Table -->
@@ -155,6 +155,10 @@ const props = defineProps({
         type: Boolean,
         required: false,
     },
+    stripe:{
+        type: Boolean,
+        required: false,
+    },
     modelValue: {
         type: Array,
         required: false,
@@ -198,8 +202,8 @@ const currentSort = ref({
     column: initialSortField.value,
     typeSorting: 'asc'
 })
-const toggleDetail = (index) => {
-    const item = filteredItems.value[index];
+const toggleDetail = (index :any) => {
+    const item :any= filteredItems.value[index];
     console.log(filteredItems.value[index])
     item._showDetail = !item._showDetail;
 }
@@ -314,7 +318,13 @@ function PrepareItems(data: any = []) {
         console.log("empty")
     }
 }
-function getData(item:any) {
-    console.log(item)
+function getRow(item:any,index:any) {
+    const Row :any = {};
+    Row.field = displayedFields.value[index]
+    Row.item = item
+    Row.index = index
+    Row.toggleDetails = () => toggleDetail(index)
+    console.log(typeof Row.toggleDetails)
+    return Row
 }
 </script>
