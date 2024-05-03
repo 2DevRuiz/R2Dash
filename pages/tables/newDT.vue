@@ -11,7 +11,7 @@
     <div class="w-full px-2 mt-3">
       <div class="bg-white rounded-lg drop-shadow-xl ">
         <officialDataTable hover :items="items" :fields="fields" :numberItems="false" v-model="visibleRows">
-          <template #cell(title)="{ value, item }">
+          <template #cell(title)="{ value, item }:any">
             <p>A bold item title: <strong>{{ value }}</strong></p>
             <p>Item ID for some reason: {{ item.id }}</p>
           </template>
@@ -21,7 +21,7 @@
           </template>
 
           <!-- Add the detail slot here -->
-          <template #detail="{ item }">
+          <template #detail="{ item }:any">
             <div>
               <p>Detail content for {{ item.name }}</p>
               <ul>
