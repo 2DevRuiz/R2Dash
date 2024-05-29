@@ -1,0 +1,293 @@
+<template>
+    <div class="m-2">
+        <div>
+            <!-- search form  -->
+            <!-- <SearchInput v-if="props.search" :pos="'R'" @search="handleSearch" /> -->
+            <!-- search form  -->
+        </div>
+        <!-- start:Table -->
+        <div class="-mx-4 px-4 py-4 overflow-x-auto sm:-mx-8">
+            <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                <table class="w-full leading-normal text-gray-500 table-fixed">
+                    <thead :class="FnColor">
+                        <tr>
+                            <th v-for="field in displayedFields"
+                                class="px-4 py-3  border-b-2 border-solid border-x-2 border-gray-200   text-left text-xs font-semibold text-gray-600  uppercase tracking-wider group"
+                                :key="field.key" @click="sortTable(field.key)">
+                                <slot :name="`head(${field.key})`" :field="field">
+                                    {{ field.label }}
+                                    <span
+                                        class="text-gray-500 mx-3  group-hover:text-gray-700  cursor-pointer "
+                                        v-show="field.ordered">
+                                        <i
+                                            :class="`fa-solid fa-${currentSort.typeSorting === 'desc' && currentSort.column === field.key ? 'arrow-up-z-a' : 'arrow-down-a-z'} fa-lg ${currentSort.column === field.key && (currentSort.typeSorting === 'asc' || currentSort.typeSorting === 'desc') ? 'text-gray-700' : ''}`"></i>
+                                    </span>
+                                </slot>
+                            </th>
+                        </tr>
+                    </thead>
+                    <!-- Start:table body -->
+                    <tbody class="bg-white">
+                        <tr v-if="props.loading"
+                            class="text-center items-center font-bold p-8 odd:bg-gray-100">
+                            <td class="p-4 flex-1 w-full items-center justify-between"
+                                :colspan="`${displayedFieldKeys.length}`">
+
+                                <i class="fa-solid fa-spinner relative text-gray-700 animate-spin mr-1"></i>
+                                <!-- LOADING -->
+                                {{ $t('globals.loaders.loading') }}
+                            </td>
+                        </tr>
+                        <template v-else-if="filteredItems.length > 0">
+                            <template v-for="(item, index) in filteredItems" >
+                                <tr :class="{ 'hover:bg-gray-300/50 ': props.hover ,'odd:bg-white even:bg-gray-100': props.stripe }">
+                                    <template v-for="key in displayedFieldKeys">
+                                        <Component :is="cellElement(key)"
+                                            class="px-4 py-3 border-b border-x-2 border-gray-200  text-sm "
+                                            :class="{ 'last:w-1/5 last:text-center': (key === 'action') }">
+                                            <slot :name="`cell(${key})`" :value="format(item, (key))" :item="item"
+                                                :index="index" :format="(k) => format(item, k)" :data="getRow(item,index)" :row="getRow(item,index)">
+                                                {{ format(item, (key)) }}
+                                            </slot>
+                                        </Component>
+                                    </template>
+                                </tr>
+                                <tr v-if="item._showDetail" class="bg-gray-200">
+                                    <td :colspan="displayedFieldKeys.length + 1">
+                                        <div class="px-4 py-2">
+                                            <!-- Slot for custom detail content -->
+                                            <slot :name="`detail`" :item="item">
+                                                <!-- Default detail content -->
+                                                <template v-for="key in displayedFieldKeys">
+                                                    <p>Detail content for {{ item[key] }}</p>
+                                                </template>
+                                                <!-- <p>Detail content for {{ item[key] }}</p> -->
+                                            </slot>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+
+                        </template>
+
+                        <tr v-else class="text-center items-center font-bold p-8 odd:bg-gray-100">
+                            <td class="p-4 capitalize" :colspan="`${displayedFieldKeys.length}`">{{
+                                $t('misc.no_data') }}</td>
+                        </tr>
+                    </tbody>
+                    <!-- end:table body -->
+                </table>
+            </div>
+        </div>
+
+
+
+        <!-- end:Table -->
+    </div>
+</template>
+<script setup>
+import { computed, ref, defineProps, defineEmits, watchEffect, watch } from 'vue'
+// import SearchInput from '../Common/SearchInput.vue';
+const searchFilter = ref('');
+const handleSearch = (search) => {
+    searchFilter.value = search
+}
+const emit = defineEmits(['update:modelValue'])
+const props = defineProps({
+    fields: {
+        type: Array,
+        default: () => []
+    },
+    items: {
+        type: Array,
+        default: () => []
+    },
+    numberItems: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
+    search: {
+        type: Boolean,
+        required: false,
+        default: true
+    },
+    headColor: {
+        type: String,
+        required: false,
+        default: ''
+    },
+    loading: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
+    hover: {
+        type: Boolean,
+        required: false,
+    },
+    stripe: {
+        type: Boolean,
+        required: false,
+    },
+    modelValue: {
+        type: Array,
+        required: false,
+        default() {
+            return []
+        }
+    },
+    // value: {
+    //     required: false
+    // },
+    value: Array
+
+});
+const localRows = ref([]);
+//cambio para obtener la lista de campos visibles en caso de que props.fields no exista
+const displayedFields = computed(() => {
+  if (props.fields.length === 0) {
+    const items = props.items;
+    console.log("items", items)
+    const allKeys = items.reduce((keys, obj) => {
+      return keys.concat(Object.keys(obj));
+    }, []);
+    return Array.from(new Set(allKeys)).map(key => ({ key, label: key }));
+  } else {
+    return props.fields.filter(i => !i.hidden)
+  }
+});
+
+const displayedFieldKeys = computed(() => {
+    const obj = Object.entries(displayedFields.value).map(([_key, value]) => value.key);
+    return obj
+})
+const initialSortField = computed(() => {
+    const orderedField = props.fields.find((field) => field.sort);
+    return orderedField ? orderedField.key : null;
+});
+const currentSort = ref({
+    column: initialSortField.value,
+    typeSorting: 'asc'
+})
+const toggleDetail = (index) => {
+    const item = filteredItems.value[index];
+    // item._showDetail = !item._showDetail;
+}
+const isDetailVisible = (index) => {
+    return filteredItems.value[index]._showDetail;
+}
+
+const cellElement = (key) => {
+    const field = props.fields.find((f) => f.key === key)
+    return field && field.header ? 'th' : 'td'
+}
+
+const format = (item, key) => {
+    const field = props.fields.find((f) => f.key === key)
+    return field && field.format ? field.format(item[key]) : item[key]
+}
+
+const sortTable = (columnName) => {
+    if (currentSort.value.column === columnName) {
+        currentSort.value.typeSorting = currentSort.value.typeSorting === 'asc' ? 'desc' : 'asc';
+    }
+    else {
+        currentSort.value.column = columnName;
+        currentSort.value.typeSorting = currentSort.value.typeSorting === 'asc' ? 'desc' : 'asc';
+    }
+}
+
+const compareData = (a, b, columnName) => {
+    const valueA = a[columnName];
+    const valueB = b[columnName];
+
+    if (typeof valueA === 'string') {
+        return currentSort.value.typeSorting === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+    } else {
+        return currentSort.value.typeSorting === 'asc' ? valueA - valueB : valueB - valueA;
+    }
+}
+
+const filteredItems = computed(() => {
+    // console.log("message")
+    const keys = displayedFieldKeys.value;
+    let dataReturn = null;
+    if (searchFilter.value !== '') {
+
+        const filteredArray = props.items.filter((item) => {
+            for (let i = 0; i < keys.length; i++) {
+                const key = keys[i];
+                if (item[key] !== undefined && typeof item[key] === 'string') {
+                    if (item[key] && item[key].toLocaleLowerCase().includes(searchFilter.value.toLocaleLowerCase())) {
+                        return true;
+                    }
+                } else if (typeof item[key] === 'number') {
+                    if (item[key] && item[key].toString().includes(searchFilter.value.toLocaleLowerCase())) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        });
+        dataReturn = filteredArray.sort((a, b) => compareData(a, b, currentSort.value.column));
+        // return filteredArray.sort((a, b) => compareData(a, b, currentSort.value.column));
+        PrepareItems(dataReturn)
+        return dataReturn;
+    }
+    // return props.items.sort((a, b) => compareData(a, b, currentSort.value.column));
+    dataReturn = props.items.sort((a, b) => compareData(a, b, currentSort.value.column));
+    PrepareItems(dataReturn)
+    return dataReturn
+})
+const FnColor = computed(() => {
+
+    switch (props.headColor) {
+        case 'primary':
+            return 'bg-[#bde3ff]';
+        case 'secondary':
+            return 'bg-[#6c757d]';
+        case 'info':
+            return 'bg-[#0dcaf0]';
+        case 'success':
+            return 'bg-[#25c279]';
+        case 'danger':
+            return 'bg-[#ec474f]';
+        case 'warning':
+            return 'bg-[#e29400]';
+        default:
+            if (props.headColor.trim() === '') {
+                return 'bg-gray-50'
+            }
+
+            return 'props.headColor';
+    }
+});
+
+function PrepareItems(data = []) {
+    if (data.length > 0) {
+        localRows.value.length = 0
+        for (let index = 0; index < data.length; index++) {
+            const element = data[index];
+            element._showDetail = false;
+            localRows.value.push(element)
+        }
+        emit('update:modelValue',localRows.value);
+    }
+    else {
+        // console.log("empty")
+    }
+}
+function getRow(item,index) {
+    const Row  = {};
+    Row.field = displayedFields.value[index]
+    Row.item = item
+    Row.index = index
+    // Row.toggleDetails = () => toggleDetail(index)
+    Row.toggleDetails = function(){
+        return toggleDetail(index)
+    }
+    // console.log(typeof Row.toggleDetails)
+    return Row
+}
+</script>

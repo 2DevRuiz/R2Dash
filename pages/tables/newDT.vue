@@ -29,7 +29,7 @@
                 <li>Email: {{ item.email }}</li>
                 <!-- Add more details as needed -->
               </ul>
-            </div>
+            </div> 
           </template>
         </officialDataTable>
 
