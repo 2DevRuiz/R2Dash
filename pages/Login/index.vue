@@ -1,5 +1,5 @@
 <template>
-    <div class="flex h-screen w-screen items-center overflow-hidden px-2">
+    <div class="flex h-screen w-screen items-center overflow-hidden px-2 border-b-">
   <!-- Login -->
   <div class="relative flex w-96 flex-col space-y-5 rounded-lg border bg-white px-5 py-10 shadow-xl sm:mx-auto">
     <div class="-z-10 absolute top-4 left-1/2 h-full w-5/6 -translate-x-1/2 rounded-lg bg-blue-600 sm:-right-10 sm:top-auto sm:left-auto sm:w-full sm:translate-x-0"></div>
