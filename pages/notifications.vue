@@ -1,6 +1,5 @@
 <template>
-    <div class="h-screen w-full bg-cyan-700 p-8 text-black flex justify-center items-center space-x-3"
-    :class="{
+    <div class="h-screen w-full bg-cyan-700 p-8 text-black flex justify-center items-center space-x-3" :class="{
 
     }">
         <button @click="addToast('info')"
@@ -28,20 +27,20 @@
 </template>
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
-import {useToastStore} from '~/store/useToast';
-const { addToast:add } = useToastStore();
+import { useToastStore } from '~/store/useToast';
+const { addToast: add } = useToastStore();
 const { items } = storeToRefs(useToastStore());
-function addToast(type:string) {
+function addToast(type: string) {
     add({
-        title:'Hello from Page 425',
-        duration:5600,
-        type:type,
-        content:'Ha Ocurrido un error'
+        title: 'Hello from Page 425',
+        duration: 5600,
+        type: type,
+        content: 'Ha Ocurrido un error'
     })
 }
 function addToast2() {
     add({
-        title:'Hello from Page 425',
+        title: 'Hello from Page 425',
         // duration:1000
     })
 }

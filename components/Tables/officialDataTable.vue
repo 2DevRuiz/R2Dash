@@ -47,7 +47,7 @@
                                             class="px-4 py-3 border-b border-x-2 border-gray-300 dark:border-gray-500   text-sm "
                                             :class="{ 'last:w-1/5 last:text-center': (key === 'action') }">
                                             <slot :name="`cell(${key})`" :value="format(item, (key))" :item="item"
-                                                :index="index" :format="(k) => format(item, k)" :data="item" :row="getRow(item,index)">
+                                                :index="index" :format="(k:any) => format(item, k)" :data="item" :row="getRow(item,index)">
                                                 {{ format(item, (key)) }}
                                             </slot>
                                         </Component>

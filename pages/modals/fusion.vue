@@ -54,7 +54,6 @@
                         <!-- Footer Section -->
                         <div
                             class="relative top-0 p-3 rounded-b-xl flex justify-end gap-2 items-end border-t border-gray-300">
-                           
                                 <button type="button" @click="close"
                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 rounded-lg">Close</button>
                            
