@@ -54,6 +54,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import SearchComponent from '../common/SearchComponent.vue'
+
 const searchFilter = ref('');
 const handleSearch = (search) => {
     searchFilter.value = search
